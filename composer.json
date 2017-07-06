@@ -1,0 +1,49 @@
+{
+    "name": "richan-fongdasen/eloquent-blameable",
+    "description": "Blameable behavior implementation for your Eloquent Model in Laravel",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/richan-fongdasen/eloquent-blameable",
+    "keywords": [
+        "laravel",
+        "eloquent",
+        "blameable"
+    ],
+    "authors": [
+        {
+            "name": "Richan Fongdasen",
+            "email": "richan.fongdasen@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/richan-fongdasen/eloquent-blameable/issues",
+        "source": "https://github.com/richan-fongdasen/eloquent-blameable"
+    },
+    "require": {
+        "php": "^5.5.9 || ^7.0",
+        "illuminate/database": "5.1.*|5.2.*|5.3.*|5.4.*",
+        "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.2 || ~4.8",
+        "orchestra/testbench": "~3.1",
+        "orchestra/database": "~3.1",
+        "fzaninotto/faker": "~1.4",
+        "mockery/mockery": "~0.9.8"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "RichanFongdasen\\EloquentBlameable\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RichanFongdasen\\EloquentBlameableTest\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
