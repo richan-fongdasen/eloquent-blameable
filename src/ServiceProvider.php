@@ -3,8 +3,6 @@
 namespace RichanFongdasen\EloquentBlameable;
 
 use Illuminate\Support\ServiceProvider as Provider;
-use RichanFongdasen\EloquentBlameable\BlameableObserver;
-use RichanFongdasen\EloquentBlameable\BlameableService;
 
 class ServiceProvider extends Provider
 {

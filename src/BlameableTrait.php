@@ -3,7 +3,6 @@
 namespace RichanFongdasen\EloquentBlameable;
 
 use Illuminate\Database\Eloquent\Builder;
-use RichanFongdasen\EloquentBlameable\BlameableObserver;
 
 trait BlameableTrait
 {
@@ -19,7 +18,7 @@ trait BlameableTrait
     }
 
     /**
-     * Get the user who created the record
+     * Get the user who created the record.
      *
      * @return Illuminate\Database\Eloquent\Model
      */
@@ -32,7 +31,7 @@ trait BlameableTrait
     }
 
     /**
-     * Get the user who updated the record for the last time
+     * Get the user who updated the record for the last time.
      *
      * @return Illuminate\Database\Eloquent\Model
      */
@@ -57,7 +56,7 @@ trait BlameableTrait
     /**
      * Define blameable configurations
      * Examples :
-     *    return \App\User::class;
+     *    return \App\User::class;.
      *
      *    return [
      *        'created_by' => 'created_by',

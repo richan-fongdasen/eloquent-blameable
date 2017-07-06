@@ -8,11 +8,12 @@ use RichanFongdasen\EloquentBlameable\Exceptions\UndefinedUserModelException;
 class BlameableService
 {
     /**
-     * Get current configuration value for the given attributes
+     * Get current configuration value for the given attributes.
      *
-     * @param  mixed $config
-     * @param  string $key
-     * @param  string $default
+     * @param mixed  $config
+     * @param string $key
+     * @param string $default
+     *
      * @return string
      */
     private function getConfiguration($config, $key, $default)
@@ -25,9 +26,10 @@ class BlameableService
     }
 
     /**
-     * Get Model's attribute name from blameable configuration for the given key
+     * Get Model's attribute name from blameable configuration for the given key.
      *
-     * @param  Illuminate\Database\Eloquent\Model $model
+     * @param Illuminate\Database\Eloquent\Model $model
+     *
      * @return string
      */
     public function getAttributeName(Model $model, $key)
@@ -36,11 +38,13 @@ class BlameableService
     }
 
     /**
-     * Get the User Model Class from blameable configuration
+     * Get the User Model Class from blameable configuration.
      *
-     * @param  Illuminate\Database\Eloquent\Model $model
-     * @return string
+     * @param Illuminate\Database\Eloquent\Model $model
+     *
      * @throws RichanFongdasen\EloquentBlameable\Exceptions\UndefinedUserModelException
+     *
+     * @return string
      */
     public function getUserModel(Model $model)
     {
@@ -55,11 +59,12 @@ class BlameableService
     }
 
     /**
-     * Set Model's attribute value for the given key
+     * Set Model's attribute value for the given key.
      *
-     * @param Model   $model
-     * @param string  $key
-     * @param boolean $updateNeeded
+     * @param Model  $model
+     * @param string $key
+     * @param bool   $updateNeeded
+     *
      * @return void
      */
     private function setAttribute(Model $model, $key, $updateNeeded = true)
@@ -71,13 +76,15 @@ class BlameableService
 
             return $attribute;
         }
+
         return null;
     }
 
     /**
-     * Update the blameable attributes of the given model
+     * Update the blameable attributes of the given model.
      *
-     * @param  Illuminate\Database\Eloquent\Model $model
+     * @param Illuminate\Database\Eloquent\Model $model
+     *
      * @return void
      */
     public function updateAttributes(Model $model)
