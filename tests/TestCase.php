@@ -92,6 +92,21 @@ abstract class TestCase extends BaseTest
     }
 
     /**
+     * Prepare to get an exception in a test
+     *
+     * @param  mixed $exception
+     * @return void
+     */
+    protected function prepareException($exception)
+    {
+        if (method_exists($this, 'expectException')) {
+            $this->expectException($exception);
+        } else {
+            $this->setExpectedException($exception);
+        }
+    }
+
+    /**
      * Setup the test environment
      */
     public function setUp()

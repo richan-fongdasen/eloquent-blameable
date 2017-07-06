@@ -139,7 +139,7 @@ class ServiceTests extends TestCase
             'user' => null
         ]);
 
-        $this->expectException(UndefinedUserModelException::class);
+        $this->prepareException(UndefinedUserModelException::class);
 
         $this->service->getUserModel($this->mockedModel);
     }
@@ -149,7 +149,7 @@ class ServiceTests extends TestCase
     {
         $this->mockedModel->shouldReceive('blameable')->andReturn(null);
 
-        $this->expectException(UndefinedUserModelException::class);
+        $this->prepareException(UndefinedUserModelException::class);
 
         $this->service->getUserModel($this->mockedModel);
     }
