@@ -46,8 +46,8 @@ before_script:
   - composer self-update
 
   - if [[ -v LARAVEL ]]; then composer require laravel/framework:$LARAVEL --no-update; fi
-  - if [[ -v ORCHESTRA ]]; then composer require-dev orchestra/testbench:$ORCHESTRA --no-update; fi
-  - if [[ -v ORCHESTRA ]]; then composer require-dev orchestra/database:$ORCHESTRA --no-update; fi
+  - if [[ -v ORCHESTRA ]]; then composer require orchestra/testbench:$ORCHESTRA --no-update; fi
+  - if [[ -v ORCHESTRA ]]; then composer require orchestra/database:$ORCHESTRA --no-update; fi
 
   - travis_retry composer install --no-interaction --prefer-source
   - phpenv rehash
