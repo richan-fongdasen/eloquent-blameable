@@ -1,0 +1,60 @@
+language: php
+
+sudo: false
+
+php:
+  - 5.5.9
+  - 5.6
+  - 7.0
+
+env:
+  matrix:
+    - LARAVEL=5.1.* ORCHESTRA=3.1.*
+    - LARAVEL=5.2.* ORCHESTRA=3.2.*
+  global:
+    - PHPUNIT=1
+
+matrix:
+  fast_finish: true
+
+  include:
+    - php: 5.6
+      env: LARAVEL=5.3.* ORCHESTRA=3.3.*
+
+    - php: 5.6
+      env: LARAVEL=5.4.* ORCHESTRA=3.4.*
+
+    - php: 7.0
+      env: LARAVEL=5.4.* ORCHESTRA=3.4.* COVERALLS=1
+
+    - php: hhvm
+      env: HHVM=1
+
+  allow_failures:
+    - env: COVERALLS=1
+    - php: hhvm
+
+
+before_script:
+  - composer self-update
+
+  - if [[ -v LARAVEL ]]; then composer require laravel/framework:$LARAVEL --no-update; fi
+  - if [[ -v ORCHESTRA ]]; then composer require orchestra/testbench:$ORCHESTRA --no-update; fi
+  - if [[ -v ORCHESTRA ]]; then composer require orchestra/database:$ORCHESTRA --no-update; fi
+
+  - travis_retry composer install --no-interaction --prefer-source
+  - phpenv rehash
+  - set +H
+
+
+script:
+  - if [[ $PHPUNIT = '1' ]]; then vendor/bin/phpunit; fi
+  - if [[ $COVERALLS = '1' ]]; then vendor/bin/phpunit --coverage-clover build/logs/clover.xml; fi
+
+
+after_script:
+  - if [[ $COVERALLS = '1' ]]; then bash <(curl -s https://codecov.io/bash); fi
+
+
+notifications:
+  email: false
