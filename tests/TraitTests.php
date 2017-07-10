@@ -44,7 +44,7 @@ class TraitTests extends TestCase
     /** @test */
     public function model_would_accept_created_by_scope2()
     {
-        $collections = Post::createdBy($this->otherUser->getKey())->get();
+        $collections = Post::createdBy($this->otherUser)->get();
 
         $this->assertTrue($collections->contains($this->postD));
         $this->assertTrue($collections->contains($this->postE));
@@ -62,7 +62,7 @@ class TraitTests extends TestCase
     /** @test */
     public function model_would_accept_updated_by_scope2()
     {
-        $collections = Post::updatedBy($this->otherUser->getKey())->get();
+        $collections = Post::updatedBy($this->otherUser)->get();
 
         $this->assertTrue($collections->contains($this->postB));
         $this->assertTrue($collections->contains($this->postD));

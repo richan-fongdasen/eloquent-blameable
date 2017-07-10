@@ -3,6 +3,7 @@
 namespace RichanFongdasen\EloquentBlameable;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 trait BlameableTrait
 {
@@ -47,12 +48,16 @@ trait BlameableTrait
      * createdBy Query Scope.
      *
      * @param Illuminate\Database\Eloquent\Builder $query
-     * @param int                                  $userId
+     * @param mixed                                $userId
      *
      * @return Illuminate\Database\Eloquent\Builder
      */
     public function scopeCreatedBy(Builder $query, $userId)
     {
+        if ($userId instanceof Model) {
+            $userId = $userId->getKey();
+        }
+
         return $query->where(app(BlameableService::class)->getConfiguration($this, 'createdBy'), $userId);
     }
 
@@ -60,12 +65,16 @@ trait BlameableTrait
      * updatedBy Query Scope.
      *
      * @param Illuminate\Database\Eloquent\Builder $query
-     * @param int                                  $userId
+     * @param mixed                                $userId
      *
      * @return Illuminate\Database\Eloquent\Builder
      */
     public function scopeUpdatedBy(Builder $query, $userId)
     {
+        if ($userId instanceof Model) {
+            $userId = $userId->getKey();
+        }
+
         return $query->where(app(BlameableService::class)->getConfiguration($this, 'updatedBy'), $userId);
     }
 }
