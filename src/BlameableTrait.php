@@ -44,10 +44,11 @@ trait BlameableTrait
     }
 
     /**
-     * createdBy Query Scope
+     * createdBy Query Scope.
      *
-     * @param  Illuminate\Database\Eloquent\Builder $query
-     * @param  integer $userId
+     * @param Illuminate\Database\Eloquent\Builder $query
+     * @param int                                  $userId
+     *
      * @return Illuminate\Database\Eloquent\Builder
      */
     public function scopeCreatedBy(Builder $query, $userId)
@@ -56,10 +57,11 @@ trait BlameableTrait
     }
 
     /**
-     * updatedBy Query Scope
+     * updatedBy Query Scope.
      *
-     * @param  Illuminate\Database\Eloquent\Builder $query
-     * @param  integer $userId
+     * @param Illuminate\Database\Eloquent\Builder $query
+     * @param int                                  $userId
+     *
      * @return Illuminate\Database\Eloquent\Builder
      */
     public function scopeUpdatedBy(Builder $query, $userId)

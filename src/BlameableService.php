@@ -3,19 +3,18 @@
 namespace RichanFongdasen\EloquentBlameable;
 
 use Illuminate\Database\Eloquent\Model;
-use RichanFongdasen\EloquentBlameable\Exceptions\UndefinedUserModelException;
 
 class BlameableService
 {
     /**
-     * Global configurations from config/blameable.php
+     * Global configurations from config/blameable.php.
      *
      * @var array
      */
     private $globalConfig;
 
     /**
-     * Blameable Service Constructor
+     * Blameable Service Constructor.
      */
     public function __construct()
     {
@@ -23,9 +22,10 @@ class BlameableService
     }
 
     /**
-     * Get configurations for the given Model
+     * Get configurations for the given Model.
      *
-     * @param  Illuminate\Database\Eloquent\Model  $model
+     * @param Illuminate\Database\Eloquent\Model $model
+     *
      * @return array
      */
     private function getConfigurations(Model $model)
@@ -39,8 +39,9 @@ class BlameableService
     /**
      * Get current configuration value for the given attributes.
      *
-     * @param Illuminate\Database\Eloquent\Model  $model
-     * @param string $key
+     * @param Illuminate\Database\Eloquent\Model $model
+     * @param string                             $key
+     *
      * @return string
      */
     public function getConfiguration(Model $model, $key)
@@ -54,6 +55,7 @@ class BlameableService
      * @param Model  $model
      * @param string $key
      * @param bool   $updateNeeded
+     *
      * @return void
      */
     private function setAttribute(Model $model, $key, $updateNeeded = true)
@@ -73,6 +75,7 @@ class BlameableService
      * Update the blameable attributes of the given model.
      *
      * @param Illuminate\Database\Eloquent\Model $model
+     *
      * @return void
      */
     public function updateAttributes(Model $model)
