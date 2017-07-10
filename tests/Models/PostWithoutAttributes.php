@@ -5,21 +5,13 @@ namespace RichanFongdasen\EloquentBlameableTest\Models;
 use Illuminate\Database\Eloquent\Model;
 use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
-class Post extends Model
+class PostWithoutAttributes extends Post
 {
-    use BlameableTrait;
-    
-    protected $fillable = [
-        'title',
-        'content'
-    ];
-
-    protected $table = 'posts';
-
     public function blameable()
     {
         return [
-            'user' => User::class,
+            'createdBy' => null,
+            'updatedBy' => null,
         ];
     }
 }

@@ -25,8 +25,8 @@ trait BlameableTrait
     public function creator()
     {
         return $this->belongsTo(
-            app(BlameableService::class)->getUserModel($this),
-            app(BlameableService::class)->getAttributeName($this, 'created_by')
+            app(BlameableService::class)->getConfiguration($this, 'user'),
+            app(BlameableService::class)->getConfiguration($this, 'createdBy')
         );
     }
 
@@ -38,33 +38,32 @@ trait BlameableTrait
     public function updater()
     {
         return $this->belongsTo(
-            app(BlameableService::class)->getUserModel($this),
-            app(BlameableService::class)->getAttributeName($this, 'updated_by')
+            app(BlameableService::class)->getConfiguration($this, 'user'),
+            app(BlameableService::class)->getConfiguration($this, 'updatedBy')
         );
     }
 
+    /**
+     * createdBy Query Scope
+     *
+     * @param  Illuminate\Database\Eloquent\Builder $query
+     * @param  integer $userId
+     * @return Illuminate\Database\Eloquent\Builder
+     */
     public function scopeCreatedBy(Builder $query, $userId)
     {
-        return $query->where(app(BlameableService::class)->getAttributeName($this, 'created_by'), $userId);
-    }
-
-    public function scopeUpdatedBy(Builder $query, $userId)
-    {
-        return $query->where(app(BlameableService::class)->getAttributeName($this, 'updated_by'), $userId);
+        return $query->where(app(BlameableService::class)->getConfiguration($this, 'createdBy'), $userId);
     }
 
     /**
-     * Define blameable configurations
-     * Examples :
-     *    return \App\User::class;.
+     * updatedBy Query Scope
      *
-     *    return [
-     *        'created_by' => 'created_by',
-     *        'updated_by' => 'updated_by',
-     *        'user' => \App\User::class
-     *    ];
-     *
-     * @return array
+     * @param  Illuminate\Database\Eloquent\Builder $query
+     * @param  integer $userId
+     * @return Illuminate\Database\Eloquent\Builder
      */
-    abstract public function blameable();
+    public function scopeUpdatedBy(Builder $query, $userId)
+    {
+        return $query->where(app(BlameableService::class)->getConfiguration($this, 'updatedBy'), $userId);
+    }
 }

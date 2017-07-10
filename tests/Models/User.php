@@ -10,15 +10,10 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
 class User extends Model implements Authenticatable
 {
     use AuthenticatableTrait;
-    
+
     protected $fillable = [
         'name',
         'email',
         'password'
     ];
-
-    public function blameable()
-    {
-        return self::class;
-    }
 }

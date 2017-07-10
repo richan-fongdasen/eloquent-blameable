@@ -8,54 +8,44 @@ use RichanFongdasen\EloquentBlameable\Exceptions\UndefinedUserModelException;
 class BlameableService
 {
     /**
+     * Global configurations from config/blameable.php
+     *
+     * @var array
+     */
+    private $globalConfig;
+
+    /**
+     * Blameable Service Constructor
+     */
+    public function __construct()
+    {
+        $this->globalConfig = app('config')->get('blameable');
+    }
+
+    /**
+     * Get configurations for the given Model
+     *
+     * @param  Illuminate\Database\Eloquent\Model  $model
+     * @return array
+     */
+    private function getConfigurations(Model $model)
+    {
+        $modelConfigurations = method_exists($model, 'blameable') ?
+            $model->blameable() : [];
+
+        return array_merge($this->globalConfig, $modelConfigurations);
+    }
+
+    /**
      * Get current configuration value for the given attributes.
      *
-     * @param mixed  $config
+     * @param Illuminate\Database\Eloquent\Model  $model
      * @param string $key
-     * @param string $default
-     *
      * @return string
      */
-    private function getConfiguration($config, $key, $default)
+    public function getConfiguration(Model $model, $key)
     {
-        if (is_array($config) && array_key_exists($key, $config)) {
-            return $config[$key];
-        }
-
-        return $default;
-    }
-
-    /**
-     * Get Model's attribute name from blameable configuration for the given key.
-     *
-     * @param Illuminate\Database\Eloquent\Model $model
-     *
-     * @return string
-     */
-    public function getAttributeName(Model $model, $key)
-    {
-        return $this->getConfiguration($model->blameable(), $key, $key);
-    }
-
-    /**
-     * Get the User Model Class from blameable configuration.
-     *
-     * @param Illuminate\Database\Eloquent\Model $model
-     *
-     * @throws RichanFongdasen\EloquentBlameable\Exceptions\UndefinedUserModelException
-     *
-     * @return string
-     */
-    public function getUserModel(Model $model)
-    {
-        $config = $model->blameable();
-        $userModel = $this->getConfiguration($config, 'user', $config);
-
-        if (!$userModel || is_array($userModel)) {
-            throw new UndefinedUserModelException();
-        }
-
-        return $userModel;
+        return data_get($this->getConfigurations($model), $key);
     }
 
     /**
@@ -64,12 +54,11 @@ class BlameableService
      * @param Model  $model
      * @param string $key
      * @param bool   $updateNeeded
-     *
      * @return void
      */
     private function setAttribute(Model $model, $key, $updateNeeded = true)
     {
-        $attribute = $this->getAttributeName($model, $key);
+        $attribute = $this->getConfiguration($model, $key);
 
         if ($attribute && $updateNeeded) {
             $model->setAttribute($attribute, \Auth::user()->getAuthIdentifier());
@@ -84,14 +73,13 @@ class BlameableService
      * Update the blameable attributes of the given model.
      *
      * @param Illuminate\Database\Eloquent\Model $model
-     *
      * @return void
      */
     public function updateAttributes(Model $model)
     {
         $attributes = [];
-        $attributes[] = $this->setAttribute($model, 'created_by', !$model->getKey());
-        $attributes[] = $this->setAttribute($model, 'updated_by');
+        $attributes[] = $this->setAttribute($model, 'createdBy', !$model->getKey());
+        $attributes[] = $this->setAttribute($model, 'updatedBy');
 
         return $model->isDirty($attributes);
     }

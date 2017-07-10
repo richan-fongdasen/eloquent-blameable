@@ -5,29 +5,14 @@ namespace RichanFongdasen\EloquentBlameableTest\Models;
 use Illuminate\Database\Eloquent\Model;
 use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
-class Comment extends Model
+class PostOverrideAttributes extends Post
 {
-    use BlameableTrait;
-    
-    protected $fillable = [
-        'content'
-    ];
-
-    protected $touches = [
-        'post'
-    ];
-
     public function blameable()
     {
         return [
             'user' => User::class,
-            'createdBy' => 'user_id',
+            'createdBy' => 'creator_id',
             'updatedBy' => 'updater_id',
         ];
-    }
-
-    public function post()
-    {
-        return $this->belongsTo(Post::class);
     }
 }
