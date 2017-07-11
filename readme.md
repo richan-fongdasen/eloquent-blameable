@@ -103,8 +103,8 @@ return [
     {
         return [
             'user' => \App\User::class,
-            'created_by' => 'user_id',
-            'updated_by' => null
+            'createdBy' => 'user_id',
+            'updatedBy' => null
         ];
     }
 ```
