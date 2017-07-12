@@ -81,7 +81,7 @@ trait BlameableTrait
     /**
      * Silently update the model without firing any
      * events.
-     * 
+     *
      * @return void
      */
     public function silentUpdate()
