@@ -26,7 +26,8 @@ class ServiceTests extends TestCase
         $expected = [
             'user' => User::class,
             'createdBy' => 'created_by',
-            'updatedBy' => 'updated_by'
+            'updatedBy' => 'updated_by',
+            'deletedBy' => 'deleted_by'
         ];
 
         $result = $this->invokeMethod($this->service, 'getConfigurations', [new Post()]);
@@ -40,7 +41,8 @@ class ServiceTests extends TestCase
         $expected = [
             'user' => User::class,
             'createdBy' => 'creator_id',
-            'updatedBy' => 'updater_id'
+            'updatedBy' => 'updater_id',
+            'deletedBy' => 'eraser_id'
         ];
 
         $result = $this->invokeMethod($this->service, 'getConfigurations', [new PostOverrideAttributes()]);
@@ -54,7 +56,8 @@ class ServiceTests extends TestCase
         $expected = [
             'user' => \App\User::class,
             'createdBy' => null,
-            'updatedBy' => null
+            'updatedBy' => null,
+            'deletedBy' => null
         ];
 
         $result = $this->invokeMethod($this->service, 'getConfigurations', [new PostWithoutAttributes()]);
@@ -94,10 +97,10 @@ class ServiceTests extends TestCase
     {
         $this->impersonateUser();
         $model = new Post();
-        $result = $this->invokeMethod($this->service, 'setAttribute', [$model, 'createdBy']);
+        $result = $this->service->setAttribute($model, 'createdBy');
 
         $this->assertEquals($this->user->getKey(), $model->getAttribute('created_by'));
-        $this->assertEquals('created_by', $result);
+        $this->assertTrue($result);
     }
 
     /** @test */
@@ -105,10 +108,10 @@ class ServiceTests extends TestCase
     {
         $this->impersonateUser();
         $model = new Post();
-        $result = $this->invokeMethod($this->service, 'setAttribute', [$model, 'createdBy', false]);
+        $result = $this->service->setAttribute($model, 'createdBy', true);
 
-        $this->assertEquals(null, $model->getAttribute('created_by'));
-        $this->assertEquals(null, $result);
+        $this->assertNull($model->getAttribute('created_by'));
+        $this->assertTrue($result);
     }
 
     /** @test */
@@ -116,10 +119,10 @@ class ServiceTests extends TestCase
     {
         $this->impersonateUser();
         $model = new PostOverrideAttributes();
-        $result = $this->invokeMethod($this->service, 'setAttribute', [$model, 'createdBy']);
+        $result = $this->service->setAttribute($model, 'createdBy');
 
         $this->assertEquals($this->user->getKey(), $model->getAttribute('creator_id'));
-        $this->assertEquals('creator_id', $result);
+        $this->assertTrue($result);
     }
 
     /** @test */
@@ -127,48 +130,10 @@ class ServiceTests extends TestCase
     {
         $this->impersonateUser();
         $model = new PostWithoutAttributes();
-        $result = $this->invokeMethod($this->service, 'setAttribute', [$model, 'createdBy']);
+        $result = $this->service->setAttribute($model, 'createdBy');
 
-        $this->assertEquals(null, $model->getAttribute('created_by'));
-        $this->assertEquals(null, $model->getAttribute('creator_id'));
-        $this->assertEquals(null, $result);
-    }
-
-    /** @test */
-    public function it_updates_the_blameable_model_attributes_correctly1()
-    {
-        $this->impersonateUser();
-        $model = new Post();
-        $result = $this->service->updateAttributes($model);
-
-        $this->assertEquals($this->user->getKey(), $model->getAttribute('created_by'));
-        $this->assertEquals($this->user->getKey(), $model->getAttribute('updated_by'));
-        $this->assertEquals(true, $result);
-    }
-
-    /** @test */
-    public function it_updates_the_blameable_model_attributes_correctly2()
-    {
-        $this->impersonateUser();
-        $model = new PostOverrideAttributes();
-        $result = $this->service->updateAttributes($model);
-
-        $this->assertEquals($this->user->getKey(), $model->getAttribute('creator_id'));
-        $this->assertEquals($this->user->getKey(), $model->getAttribute('updater_id'));
-        $this->assertEquals(true, $result);
-    }
-
-    /** @test */
-    public function it_updates_the_blameable_model_attributes_correctly3()
-    {
-        $this->impersonateUser();
-        $model = new PostWithoutAttributes();
-        $result = $this->service->updateAttributes($model);
-
-        $this->assertEquals(null, $model->getAttribute('created_by'));
-        $this->assertEquals(null, $model->getAttribute('creator_id'));
-        $this->assertEquals(null, $model->getAttribute('updated_by'));
-        $this->assertEquals(null, $model->getAttribute('updater_id'));
-        $this->assertEquals(false, $result);
+        $this->assertNull($model->getAttribute('created_by'));
+        $this->assertNull($model->getAttribute('creator_id'));
+        $this->assertFalse($result);
     }
 }

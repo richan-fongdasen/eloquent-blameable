@@ -12,6 +12,7 @@ class PostWithoutAttributes extends Post
         return [
             'createdBy' => null,
             'updatedBy' => null,
+            'deletedBy' => null,
         ];
     }
 }

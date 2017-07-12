@@ -77,4 +77,20 @@ trait BlameableTrait
 
         return $query->where(app(BlameableService::class)->getConfiguration($this, 'updatedBy'), $userId);
     }
+
+    /**
+     * Silently update the model without firing any
+     * events.
+     * 
+     * @return void
+     */
+    public function silentUpdate()
+    {
+        $query = $this->newQueryWithoutScopes()->where($this->getKeyName(), $this->getKey());
+        $dirty = $this->getDirty();
+
+        if ($dirty) {
+            $query->update($dirty);
+        }
+    }
 }

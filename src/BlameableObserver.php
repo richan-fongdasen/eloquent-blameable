@@ -7,7 +7,57 @@ use Illuminate\Database\Eloquent\Model;
 class BlameableObserver
 {
     /**
-     * Listening to any saving events triggered by the given Model.
+     * Listening to any creating events.
+     *
+     * @param Illuminate\Database\Eloquent\Model $model
+     *
+     * @return void
+     */
+    public function creating(Model $model)
+    {
+        app(BlameableService::class)->setAttribute($model, 'createdBy');
+    }
+
+    /**
+     * Listening to any deleted events.
+     *
+     * @param Illuminate\Database\Eloquent\Model $model
+     *
+     * @return void
+     */
+    public function deleted(Model $model)
+    {
+        if ($model->isDirty()) {
+            $model->silentUpdate();
+        }
+    }
+
+    /**
+     * Listening to any deleting events.
+     *
+     * @param Illuminate\Database\Eloquent\Model $model
+     *
+     * @return void
+     */
+    public function deleting(Model $model)
+    {
+        app(BlameableService::class)->setAttribute($model, 'deletedBy');
+    }
+
+    /**
+     * Listening to any restoring events.
+     *
+     * @param Illuminate\Database\Eloquent\Model $model
+     *
+     * @return void
+     */
+    public function restoring(Model $model)
+    {
+        app(BlameableService::class)->setAttribute($model, 'deletedBy', true);
+    }
+
+    /**
+     * Listening to any saving events.
      *
      * @param Illuminate\Database\Eloquent\Model $model
      *
@@ -15,6 +65,6 @@ class BlameableObserver
      */
     public function saving(Model $model)
     {
-        app(BlameableService::class)->updateAttributes($model);
+        app(BlameableService::class)->setAttribute($model, 'updatedBy');
     }
 }

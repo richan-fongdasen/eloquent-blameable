@@ -3,11 +3,13 @@
 namespace RichanFongdasen\EloquentBlameableTest\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
 class Post extends Model
 {
     use BlameableTrait;
+    use SoftDeletes;
     
     protected $fillable = [
         'title',
@@ -19,7 +21,7 @@ class Post extends Model
     public function blameable()
     {
         return [
-            'user' => User::class,
+            'user' => User::class
         ];
     }
 }

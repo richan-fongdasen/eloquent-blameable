@@ -54,36 +54,19 @@ class BlameableService
      *
      * @param Model  $model
      * @param string $key
-     * @param bool   $updateNeeded
+     * @param bool   $reset
      *
      * @return void
      */
-    private function setAttribute(Model $model, $key, $updateNeeded = true)
+    public function setAttribute(Model $model, $key, $reset = false)
     {
         $attribute = $this->getConfiguration($model, $key);
 
-        if ($attribute && $updateNeeded) {
-            $model->setAttribute($attribute, \Auth::user()->getAuthIdentifier());
-
-            return $attribute;
+        if ($attribute) {
+            $value = $reset ? null : blameable_user();
+            $model->setAttribute($attribute, $value);
         }
 
-        return null;
-    }
-
-    /**
-     * Update the blameable attributes of the given model.
-     *
-     * @param Illuminate\Database\Eloquent\Model $model
-     *
-     * @return void
-     */
-    public function updateAttributes(Model $model)
-    {
-        $attributes = [];
-        $attributes[] = $this->setAttribute($model, 'createdBy', !$model->getKey());
-        $attributes[] = $this->setAttribute($model, 'updatedBy');
-
-        return $model->isDirty($attributes);
+        return $model->isDirty($attribute);
     }
 }

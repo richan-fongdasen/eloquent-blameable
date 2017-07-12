@@ -89,6 +89,19 @@ return [
     */
 
     'updatedBy' => 'updated_by',
+
+    /*
+    |--------------------------------------------------------------------------
+    | The `deletedBy` attribute
+    |--------------------------------------------------------------------------
+    |
+    | Please define an attribute to use when recording the user
+    | identifier who deleted the record. This feature would only work
+    | if you are using SoftDeletes in your model.
+    |
+    */
+
+    'deletedBy' => 'deleted_by',
 ];
 ```
 

@@ -13,6 +13,7 @@ class PostOverrideAttributes extends Post
             'user' => User::class,
             'createdBy' => 'creator_id',
             'updatedBy' => 'updater_id',
+            'deletedBy' => 'eraser_id',
         ];
     }
 }
