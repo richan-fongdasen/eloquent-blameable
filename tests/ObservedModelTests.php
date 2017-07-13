@@ -161,4 +161,87 @@ class ObservedModelTests extends TestCase
 
         $this->assertNull($restoredComment->getAttribute('deleted_by'));
     }
+
+
+
+
+
+    /** @test */
+    public function it_works_perfectly_on_creating_a_new_user1()
+    {
+        $this->impersonateUser();
+
+        $this->assertFalse($this->user->isDirty('created_by'));
+        $this->assertFalse($this->user->isDirty('updated_by'));
+        $this->assertNull($this->user->getAttribute('created_by'));
+        $this->assertNull($this->user->getAttribute('updated_by'));
+    }
+
+    /** @test */
+    public function it_works_perfectly_on_creating_a_new_user2()
+    {
+        $this->impersonateUser();
+        $this->impersonateOtherUser();
+
+        $this->assertFalse($this->otherUser->isDirty('created_by'));
+        $this->assertFalse($this->otherUser->isDirty('updated_by'));
+        $this->assertEquals($this->user->getKey(), $this->otherUser->getAttribute('created_by'));
+        $this->assertEquals($this->user->getKey(), $this->otherUser->getAttribute('updated_by'));
+    }
+
+    /** @test */
+    public function it_works_perfectly_on_updating_existing_user()
+    {
+        $this->impersonateUser();
+        $user = factory(User::class)->create();
+
+        $this->impersonateOtherUser();
+        $user->setAttribute('email', 'another@email.com');
+        $user->save();
+
+        $this->assertFalse($user->isDirty('created_by'));
+        $this->assertFalse($user->isDirty('updated_by'));
+        $this->assertEquals($this->user->getKey(), $user->getAttribute('created_by'));
+        $this->assertEquals($this->otherUser->getKey(), $user->getAttribute('updated_by'));
+    }
+
+    /** @test */
+    public function it_works_perfectly_on_deleting_user1()
+    {
+        $this->impersonateUser();
+        $user = factory(User::class)->create();
+
+        $user->delete();
+        $deletedUser = User::onlyTrashed()->where('id', $user->getKey())->first();
+
+        $this->assertEquals($this->user->getKey(), $deletedUser->getAttribute('deleted_by'));
+    }
+
+    /** @test */
+    public function it_works_perfectly_on_deleting_user2()
+    {
+        $this->impersonateUser();
+        $user = factory(User::class)->create();
+
+        $this->impersonateOtherUser();
+        $user->delete();
+        $deletedUser = User::onlyTrashed()->where('id', $user->getKey())->first();
+
+        $this->assertEquals($this->user->getKey(), $deletedUser->getAttribute('updated_by'));
+        $this->assertEquals($this->otherUser->getKey(), $deletedUser->getAttribute('deleted_by'));
+    }
+
+    /** @test */
+    public function it_works_perfectly_on_restoring_deleted_user()
+    {
+        $this->impersonateUser();
+        $user = factory(User::class)->create();
+
+        $this->impersonateOtherUser();
+        $user->delete();
+        User::onlyTrashed()->where('id', $user->getKey())->first()->restore();
+        $restoredUser = User::where('id', $user->getKey())->first();
+
+        $this->assertNull($restoredUser->getAttribute('deleted_by'));
+    }
 }
