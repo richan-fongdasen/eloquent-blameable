@@ -19,9 +19,27 @@ trait BlameableTrait
     }
 
     /**
+     * Build blameable query scope
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param  mixed                                 $userId
+     * @param  string                                $key
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    private function buildBlameableScope(Builder $query, $userId, $key)
+    {
+        if ($userId instanceof Model) {
+            $userId = $userId->getKey();
+        }
+
+        return $query->where(app(BlameableService::class)->getConfiguration($this, $key), $userId);
+    }
+
+    /**
      * Get the user who created the record.
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function creator()
     {
@@ -34,7 +52,7 @@ trait BlameableTrait
     /**
      * Get the user who updated the record for the last time.
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function updater()
     {
@@ -47,35 +65,27 @@ trait BlameableTrait
     /**
      * createdBy Query Scope.
      *
-     * @param Illuminate\Database\Eloquent\Builder $query
-     * @param mixed                                $userId
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed                                 $userId
      *
-     * @return Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeCreatedBy(Builder $query, $userId)
     {
-        if ($userId instanceof Model) {
-            $userId = $userId->getKey();
-        }
-
-        return $query->where(app(BlameableService::class)->getConfiguration($this, 'createdBy'), $userId);
+        return $this->buildBlameableScope($query, $userId, 'createdBy');
     }
 
     /**
      * updatedBy Query Scope.
      *
-     * @param Illuminate\Database\Eloquent\Builder $query
-     * @param mixed                                $userId
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed                                 $userId
      *
-     * @return Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeUpdatedBy(Builder $query, $userId)
     {
-        if ($userId instanceof Model) {
-            $userId = $userId->getKey();
-        }
-
-        return $query->where(app(BlameableService::class)->getConfiguration($this, 'updatedBy'), $userId);
+        return $this->buildBlameableScope($query, $userId, 'updatedBy');
     }
 
     /**

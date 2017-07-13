@@ -24,7 +24,7 @@ class BlameableService
     /**
      * Get configurations for the given Model.
      *
-     * @param Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model $model
      *
      * @return array
      */
@@ -39,8 +39,8 @@ class BlameableService
     /**
      * Get current configuration value for the given attributes.
      *
-     * @param Illuminate\Database\Eloquent\Model $model
-     * @param string                             $key
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param string                              $key
      *
      * @return string
      */
