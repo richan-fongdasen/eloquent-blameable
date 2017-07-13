@@ -99,7 +99,7 @@ trait BlameableTrait
         $query = $this->newQueryWithoutScopes()->where($this->getKeyName(), $this->getKey());
         $dirty = $this->getDirty();
 
-        if ($dirty) {
+        if (!empty($dirty)) {
             $query->update($dirty);
         }
     }
@@ -107,10 +107,11 @@ trait BlameableTrait
     /**
      * Define an inverse one-to-one or many relationship.
      *
-     * @param  string  $related
-     * @param  string  $foreignKey
-     * @param  string  $otherKey
-     * @param  string  $relation
+     * @param string $related
+     * @param string $foreignKey
+     * @param string $otherKey
+     * @param string $relation
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     abstract public function belongsTo($related, $foreignKey = null, $otherKey = null, $relation = null);
