@@ -9,7 +9,7 @@ class BlameableObserver
     /**
      * Listening to any creating events.
      *
-     * @param Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model $model
      *
      * @return void
      */
@@ -21,7 +21,7 @@ class BlameableObserver
     /**
      * Listening to any deleted events.
      *
-     * @param Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model $model
      *
      * @return void
      */
@@ -35,7 +35,7 @@ class BlameableObserver
     /**
      * Listening to any deleting events.
      *
-     * @param Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model $model
      *
      * @return void
      */
@@ -47,7 +47,7 @@ class BlameableObserver
     /**
      * Listening to any restoring events.
      *
-     * @param Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model $model
      *
      * @return void
      */
@@ -59,7 +59,7 @@ class BlameableObserver
     /**
      * Listening to any saving events.
      *
-     * @param Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model $model
      *
      * @return void
      */

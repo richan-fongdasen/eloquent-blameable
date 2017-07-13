@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/richan-fongdasen/eloquent-blameable.svg?branch=master)](https://travis-ci.org/richan-fongdasen/eloquent-blameable) 
 [![codecov](https://codecov.io/gh/richan-fongdasen/eloquent-blameable/branch/master/graph/badge.svg)](https://codecov.io/gh/richan-fongdasen/eloquent-blameable) 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/richan-fongdasen/eloquent-blameable/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/richan-fongdasen/eloquent-blameable/?branch=master) 
 [![Total Downloads](https://poser.pugx.org/richan-fongdasen/eloquent-blameable/d/total.svg)](https://packagist.org/packages/richan-fongdasen/eloquent-blameable) 
 [![Latest Stable Version](https://poser.pugx.org/richan-fongdasen/eloquent-blameable/v/stable.svg)](https://packagist.org/packages/richan-fongdasen/eloquent-blameable) 
 [![License: MIT](https://poser.pugx.org/laravel/framework/license.svg)](https://opensource.org/licenses/MIT) 
