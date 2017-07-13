@@ -19,11 +19,11 @@ trait BlameableTrait
     }
 
     /**
-     * Build blameable query scope
+     * Build blameable query scope.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder $query
-     * @param  mixed                                 $userId
-     * @param  string                                $key
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed                                 $userId
+     * @param string                                $key
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -91,7 +91,7 @@ trait BlameableTrait
     /**
      * Silently update the model without firing any
      * events.
-     * 
+     *
      * @return void
      */
     public function silentUpdate()

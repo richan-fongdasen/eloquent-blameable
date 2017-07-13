@@ -1,8 +1,8 @@
 <?php
 
-if (! function_exists('blameable_user')) {
+if (!function_exists('blameable_user')) {
     /**
-     * Get the blameable User identifier
+     * Get the blameable User identifier.
      *
      * @return mixed
      */
