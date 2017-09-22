@@ -29,7 +29,7 @@ $ composer require richan-fongdasen/eloquent-blameable
 
 ### Laravel version compatibility
 
-This package supports laravel versions from ``5.1.35`` to ``5.4.*``
+This package supports laravel versions from ``5.1.35`` to ``5.5.*``
 
 ### Service Provider
 
