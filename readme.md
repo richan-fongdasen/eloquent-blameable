@@ -31,6 +31,8 @@ $ composer require richan-fongdasen/eloquent-blameable
 
 This package supports laravel versions from ``5.1.35`` to ``5.5.*``
 
+> If you are using Laravel version 5.5+ then you can skip registering the service provider in your Laravel application.
+
 ### Service Provider
 
 Add the package service provider in your ``config/app.php``
