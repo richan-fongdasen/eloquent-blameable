@@ -16,9 +16,11 @@ matrix:
     - php: 7.0
       env: LARAVEL=5.5.* ORCHESTRA=3.5.* COVERAGE=1
     - php: 7.1
-      env: LARAVEL=5.5.* ORCHESTRA=3.5.*
+      env: LARAVEL=5.6.* ORCHESTRA=3.6.*
+    - php: 7.2
+      env: LARAVEL=5.6.* ORCHESTRA=3.6.*
     - php: hhvm
-      env: HHVM=1
+      env: HHVM=1 LARAVEL=5.4.* ORCHESTRA=3.4.*
 
   allow_failures:
     - env: COVERAGE=1
@@ -39,7 +41,7 @@ before_script:
 
 script:
   - vendor/bin/phpunit
-  - if [[ $COVERAGE = '1' ]]; then vendor/bin/phpunit --coverage-clover build/logs/clover.xml; fi
+  - if [[ $COVERAGE = '1' ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=clover.xml; fi
 
 after_script:
   - if [[ $COVERAGE = '1' ]]; then bash <(curl -s https://codecov.io/bash); fi
