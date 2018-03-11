@@ -47,6 +47,13 @@
             "RichanFongdasen\\EloquentBlameableTest\\": "tests/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RichanFongdasen\\EloquentBlameable\\ServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
