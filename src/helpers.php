@@ -8,8 +8,7 @@ if (!function_exists('blameable_user')) {
      */
     function blameable_user()
     {
-        if ($user = \Auth::user())
-        {
+        if ($user = \Auth::user()) {
             return (get_class($user) == config('blameable.user')) ? $user->getKey() : null;
         }
         return null;
