@@ -9,7 +9,10 @@ if (!function_exists('blameable_user')) {
     function blameable_user()
     {
         if ($user = \Auth::user()) {
-            return (get_class($user) == config('blameable.user')) ? $user->getKey() : null;
+            if (config('blameable.user') != 'App\User') {
+                return (get_class($user) == config('blameable.user')) ? $user->getKey() : null;
+            }
+            return $user->getKey();
         }
         return null;
     }
