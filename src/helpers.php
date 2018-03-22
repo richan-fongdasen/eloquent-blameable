@@ -12,8 +12,10 @@ if (!function_exists('blameable_user')) {
             if (config('blameable.user') != 'App\User') {
                 return (get_class($user) == config('blameable.user')) ? $user->getKey() : null;
             }
+            
             return $user->getKey();
         }
+        
         return null;
     }
 }
