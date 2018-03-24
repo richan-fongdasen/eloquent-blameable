@@ -29,7 +29,7 @@ $ composer require richan-fongdasen/eloquent-blameable
 
 ### Laravel version compatibility
 
-This package supports laravel versions from ``5.1.35`` to ``5.5.*``
+This package supports laravel versions from ``5.1.35`` to ``5.6.*``
 
 > If you are using Laravel version 5.5+ then you can skip registering the service provider in your Laravel application.
 
@@ -108,6 +108,22 @@ return [
 ];
 ```
 
+## Usage
+
+### Attach Blameable behavior into your Model
+
+```php
+use Illuminate\Database\Eloquent\Model;
+use RichanFongdasen\EloquentBlameable\BlameableTrait;
+
+class Post extends Model
+{
+    use BlameableTrait;
+
+    // ...
+}
+```
+
 ### Override default configuration
 
 ```php
@@ -123,21 +139,6 @@ return [
             'updatedBy' => null
         ];
     }
-```
-
-## Usage
-
-### Attach Blameable behavior into your Model
-
-```php
-use RichanFongdasen\EloquentBlameable\BlameableTrait;
-
-class Post extends Model
-{
-    use BlameableTrait;
-
-    // ...
-}
 ```
 
 ### Using Blameable Query Scopes
