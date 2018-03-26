@@ -10,42 +10,33 @@ use RichanFongdasen\EloquentBlameable\BlameableService;
 class HelperTests extends TestCase
 {
 
-    /**
-     * The Eloquent model to test the helper function on
-     *
-     * @var Post
-     */
-    protected $post;
-
-    /**
-     * Set up the test
-     */
-    public function setUp()
+    /** @test */
+    public function it_returns_null_as_current_user_identifier()
     {
-        parent::setUp();
-
-        $this->post = factory(Post::class)->make();
+        $this->assertNull(blameable_user(new Post));
     }
 
     /** @test */
-    public function it_returns_current_user_identifier_correctly1()
-    {
-        $this->assertNull(blameable_user($this->post));
-    }
-
-    /** @test */
-    public function it_returns_current_user_identifier_correctly2()
+    public function it_returns_current_user_identifier_when_calling_as_user()
     {
         $this->impersonateUser();
 
-        $this->assertEquals($this->user->getKey(), blameable_user($this->post));
+        $this->assertEquals($this->user->getKey(), blameable_user(new Post));
     }
 
     /** @test */
-    public function it_returns_current_user_identifier_correctly3()
+    public function it_returns_current_user_identifier_when_calling_as_other_user()
     {
         $this->impersonateOtherUser();
 
-        $this->assertEquals($this->otherUser->getKey(), blameable_user($this->post));
+        $this->assertEquals($this->otherUser->getKey(), blameable_user(new Post));
+    }
+
+    /** @test */
+    public function it_returns_null_as_current_user_identifier_when_current_user_is_other_class()
+    {
+        $this->impersonateUser();
+
+        $this->assertNull(blameable_user(new PostWithoutAttributes));
     }
 }
