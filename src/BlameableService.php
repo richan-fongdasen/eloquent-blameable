@@ -63,7 +63,7 @@ class BlameableService
         $attribute = $this->getConfiguration($model, $key);
 
         if ($attribute) {
-            $value = $reset ? null : blameable_user();
+            $value = $reset ? null : blameable_user($model);
             $model->setAttribute($attribute, $value);
         }
 
