@@ -36,6 +36,7 @@ abstract class TestCase extends BaseTest
             'database' => ':memory:',
             'prefix' => '',
         ]);
+        $app['config']->set('blameable.user', User::class);
     }
 
     /**

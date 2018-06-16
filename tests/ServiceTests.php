@@ -54,7 +54,7 @@ class ServiceTests extends TestCase
     public function it_returns_configurations_correctly3()
     {
         $expected = [
-            'user' => \App\User::class,
+            'user' => User::class,
             'createdBy' => null,
             'updatedBy' => null,
             'deletedBy' => null

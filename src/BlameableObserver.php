@@ -19,20 +19,6 @@ class BlameableObserver
     }
 
     /**
-     * Listening to any deleted events.
-     *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     *
-     * @return void
-     */
-    public function deleted(Model $model)
-    {
-        if ($model->isDirty()) {
-            $model->silentUpdate();
-        }
-    }
-
-    /**
      * Listening to any deleting events.
      *
      * @param \Illuminate\Database\Eloquent\Model $model
@@ -42,6 +28,10 @@ class BlameableObserver
     public function deleting(Model $model)
     {
         app(BlameableService::class)->setAttribute($model, 'deletedBy');
+
+        if ($model->isDirty()) {
+            $model->silentUpdate();
+        }
     }
 
     /**
