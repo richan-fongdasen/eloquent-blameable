@@ -4,9 +4,24 @@ namespace RichanFongdasen\EloquentBlameable;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 trait BlameableTrait
 {
+    /**
+     * Get any of override 'blameable attributes'.
+     *
+     * @return array
+     */
+    public function blameable()
+    {
+        if (property_exists($this, 'blameable')) {
+            return (array) static::$blameable;
+        }
+
+        return [];
+    }
+
     /**
      * Boot the Blameable service by attaching
      * a new observer into the current model object.
@@ -39,7 +54,7 @@ trait BlameableTrait
     /**
      * Get the user who created the record.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function creator()
     {
@@ -52,7 +67,7 @@ trait BlameableTrait
     /**
      * Get the user who updated the record for the last time.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function updater()
     {
@@ -92,25 +107,33 @@ trait BlameableTrait
      * Silently update the model without firing any
      * events.
      *
-     * @return void
+     * @return int
      */
     public function silentUpdate()
     {
-        $query = $this->newQueryWithoutScopes()->where($this->getKeyName(), $this->getKey());
-        $dirty = $this->getDirty();
+        return $this->newQueryWithoutScopes()
+            ->where($this->getKeyName(), $this->getKey())
+            ->getQuery()
+            ->update($this->getDirty());
+    }
 
-        if (!empty($dirty)) {
-            $query->update($dirty);
-        }
+    /**
+     * Confirm if the current model uses SoftDeletes.
+     *
+     * @return bool
+     */
+    public function useSoftDeletes()
+    {
+        return in_array(SoftDeletes::class, class_uses($this));
     }
 
     /**
      * Define an inverse one-to-one or many relationship.
      *
-     * @param string $related
-     * @param string $foreignKey
-     * @param string $otherKey
-     * @param string $relation
+     * @param string      $related
+     * @param string|null $foreignKey
+     * @param string|null $otherKey
+     * @param string|null $relation
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

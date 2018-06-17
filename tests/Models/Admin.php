@@ -8,11 +8,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use RichanFongdasen\EloquentBlameableTest\Models\Extensions\AuthenticatableTrait;
 use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
-class User extends Model implements Authenticatable
+class Admin extends Model implements Authenticatable
 {
     use AuthenticatableTrait;
     use BlameableTrait;
     use SoftDeletes;
+
+    protected static $blameable = [
+        'guard' => 'admin',
+        'user' => self::class
+    ];
 
     protected $fillable = [
         'name',

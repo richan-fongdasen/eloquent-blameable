@@ -4,6 +4,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Authentication Guard
+    |--------------------------------------------------------------------------
+    |
+    | Please specify your default authentication guard to be used by blameable
+    | service. You can leave this to null if you're using the default Laravel
+    | authentication guard.
+    |
+    | You can also override this value in model classes to use a different
+    | authentication guard for your specific models.
+    | IE: Some of your models can only be created / updated by specific users
+    | who logged in from a specific authentication guard.
+    |
+    */
+
+    'guard' => null,
+
+    /*
+    |--------------------------------------------------------------------------
     | User Model Definition
     |--------------------------------------------------------------------------
     |

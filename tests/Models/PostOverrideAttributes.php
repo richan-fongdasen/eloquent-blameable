@@ -7,13 +7,9 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
 class PostOverrideAttributes extends Post
 {
-    public function blameable()
-    {
-        return [
-            'user' => User::class,
-            'createdBy' => 'creator_id',
-            'updatedBy' => 'updater_id',
-            'deletedBy' => 'eraser_id',
-        ];
-    }
+    protected static $blameable = [
+        'createdBy' => 'creator_id',
+        'updatedBy' => 'updater_id',
+        'deletedBy' => 'eraser_id',
+    ];
 }

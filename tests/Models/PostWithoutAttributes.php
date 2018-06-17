@@ -7,12 +7,10 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
 class PostWithoutAttributes extends Post
 {
-    public function blameable()
-    {
-        return [
-            'createdBy' => null,
-            'updatedBy' => null,
-            'deletedBy' => null,
-        ];
-    }
+    protected static $blameable = [
+        'user' => 'App\User',
+        'createdBy' => null,
+        'updatedBy' => null,
+        'deletedBy' => null,
+    ];
 }

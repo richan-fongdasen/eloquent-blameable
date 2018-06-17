@@ -10,18 +10,11 @@ class Post extends Model
 {
     use BlameableTrait;
     use SoftDeletes;
-    
+
     protected $fillable = [
         'title',
         'content'
     ];
 
     protected $table = 'posts';
-
-    public function blameable()
-    {
-        return [
-            'user' => User::class
-        ];
-    }
 }

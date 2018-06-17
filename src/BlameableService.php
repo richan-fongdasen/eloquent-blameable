@@ -18,7 +18,7 @@ class BlameableService
      */
     public function __construct()
     {
-        $this->globalConfig = app('config')->get('blameable');
+        $this->loadConfig();
     }
 
     /**
@@ -50,13 +50,23 @@ class BlameableService
     }
 
     /**
+     * Load default blameable configurations.
+     *
+     * @return void
+     */
+    public function loadConfig()
+    {
+        $this->globalConfig = app('config')->get('blameable');
+    }
+
+    /**
      * Set Model's attribute value for the given key.
      *
      * @param Model  $model
      * @param string $key
      * @param bool   $reset
      *
-     * @return void
+     * @return bool
      */
     public function setAttribute(Model $model, $key, $reset = false)
     {

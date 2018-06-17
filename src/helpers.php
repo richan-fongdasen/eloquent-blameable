@@ -11,7 +11,9 @@ if (!function_exists('blameable_user')) {
      */
     function blameable_user(Model $model)
     {
-        $user = \Auth::user();
+        $guard = app(BlameableService::class)->getConfiguration($model, 'guard');
+
+        $user = ($guard === null) ? \Auth::user() : \Auth::guard($guard)->user();
         $userClass = app(BlameableService::class)->getConfiguration($model, 'user');
 
         if ($user instanceof $userClass) {
