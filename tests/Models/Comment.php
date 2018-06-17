@@ -11,6 +11,12 @@ class Comment extends Model
     use BlameableTrait;
     use SoftDeletes;
     
+    protected static $blameable = [
+        'createdBy' => 'user_id',
+        'updatedBy' => 'updater_id',
+        'deletedBy' => 'eraser_id',
+    ];
+
     protected $fillable = [
         'content'
     ];
@@ -18,16 +24,6 @@ class Comment extends Model
     protected $touches = [
         'post'
     ];
-
-    public function blameable()
-    {
-        return [
-            'user' => User::class,
-            'createdBy' => 'user_id',
-            'updatedBy' => 'updater_id',
-            'deletedBy' => 'eraser_id',
-        ];
-    }
 
     public function post()
     {

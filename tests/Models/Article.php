@@ -10,6 +10,11 @@ class Article extends Model
 {
     use BlameableTrait;
     use SoftDeletes;
+
+    protected static $blameable = [
+        'guard' => 'admin',
+        'user' => Admin::class,
+    ];
     
     protected $fillable = [
         'title',
@@ -17,12 +22,4 @@ class Article extends Model
     ];
 
     protected $table = 'posts';
-
-    public function blameable()
-    {
-        return [
-            'guard' => 'admin',
-            'user' => Admin::class,
-        ];
-    }
 }

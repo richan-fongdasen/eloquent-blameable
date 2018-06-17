@@ -19,11 +19,4 @@ class User extends Model implements Authenticatable
         'email',
         'password'
     ];
-
-    public function blameable()
-    {
-        return [
-            'user' => self::class
-        ];
-    }
 }

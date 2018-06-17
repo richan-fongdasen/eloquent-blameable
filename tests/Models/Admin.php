@@ -14,17 +14,14 @@ class Admin extends Model implements Authenticatable
     use BlameableTrait;
     use SoftDeletes;
 
+    protected static $blameable = [
+        'guard' => 'admin',
+        'user' => self::class
+    ];
+
     protected $fillable = [
         'name',
         'email',
         'password'
     ];
-
-    public function blameable()
-    {
-        return [
-            'guard' => 'admin',
-            'user' => self::class
-        ];
-    }
 }

@@ -18,7 +18,7 @@ class BlameableService
      */
     public function __construct()
     {
-        $this->globalConfig = app('config')->get('blameable');
+        $this->loadConfig();
     }
 
     /**
@@ -47,6 +47,16 @@ class BlameableService
     public function getConfiguration(Model $model, $key)
     {
         return data_get($this->getConfigurations($model), $key);
+    }
+
+    /**
+     * Load default blameable configurations.
+     *
+     * @return void
+     */
+    public function loadConfig()
+    {
+        $this->globalConfig = app('config')->get('blameable');
     }
 
     /**

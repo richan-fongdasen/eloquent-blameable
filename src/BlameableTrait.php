@@ -9,6 +9,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 trait BlameableTrait
 {
     /**
+     * Get any of override 'blameable attributes'.
+     *
+     * @return array
+     */
+    public function blameable()
+    {
+        if (property_exists($this, 'blameable')) {
+            return (array) static::$blameable;
+        }
+        return [];
+    }
+
+    /**
      * Boot the Blameable service by attaching
      * a new observer into the current model object.
      *
