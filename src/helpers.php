@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model;
-use RichanFongdasen\EloquentBlameableTest\Models\Article;
 use RichanFongdasen\EloquentBlameable\BlameableService;
 
 if (!function_exists('blameable_user')) {
