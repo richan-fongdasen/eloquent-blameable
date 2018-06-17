@@ -167,7 +167,8 @@ trait BlameableTrait
     /**
      * Determine if the model or given attribute(s) have been modified.
      *
-     * @param  array|string|null  $attributes
+     * @param array|string|null $attributes
+     *
      * @return bool
      */
     abstract public function isDirty();
