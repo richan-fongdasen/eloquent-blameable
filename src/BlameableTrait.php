@@ -18,6 +18,7 @@ trait BlameableTrait
         if (property_exists($this, 'blameable')) {
             return (array) static::$blameable;
         }
+
         return [];
     }
 
@@ -123,7 +124,7 @@ trait BlameableTrait
     /**
      * Confirm if the current model uses SoftDeletes.
      *
-     * @return boolean
+     * @return bool
      */
     public function useSoftDeletes()
     {
