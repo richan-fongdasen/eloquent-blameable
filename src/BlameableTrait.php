@@ -53,7 +53,7 @@ trait BlameableTrait
     /**
      * Get the user who created the record.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function creator()
     {
@@ -66,7 +66,7 @@ trait BlameableTrait
     /**
      * Get the user who updated the record for the last time.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function updater()
     {
@@ -133,10 +133,10 @@ trait BlameableTrait
     /**
      * Define an inverse one-to-one or many relationship.
      *
-     * @param string $related
-     * @param string $foreignKey
-     * @param string $otherKey
-     * @param string $relation
+     * @param string      $related
+     * @param string|null $foreignKey
+     * @param string|null $otherKey
+     * @param string|null $relation
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -162,6 +162,14 @@ trait BlameableTrait
      * @return mixed
      */
     abstract public function getKey();
+
+    /**
+     * Determine if the model or given attribute(s) have been modified.
+     *
+     * @param  array|string|null  $attributes
+     * @return bool
+     */
+    abstract public function isDirty();
 
     /**
      * Get a new query builder that doesn't have any global scopes.

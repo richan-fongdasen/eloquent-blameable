@@ -66,7 +66,7 @@ class BlameableService
      * @param string $key
      * @param bool   $reset
      *
-     * @return void
+     * @return boolean
      */
     public function setAttribute(Model $model, $key, $reset = false)
     {
