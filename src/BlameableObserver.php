@@ -29,7 +29,7 @@ class BlameableObserver
     {
         app(BlameableService::class)->setAttribute($model, 'deletedBy');
 
-        if ($model->useSoftDeletes()) {
+        if ($model->useSoftDeletes() && $model->isDirty()) {
             $model->silentUpdate();
         }
     }

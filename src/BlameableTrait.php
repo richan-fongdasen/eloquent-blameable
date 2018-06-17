@@ -111,10 +111,6 @@ trait BlameableTrait
      */
     public function silentUpdate()
     {
-        if (!$this->isDirty()) {
-            return 0;
-        }
-
         return $this->newQueryWithoutScopes()
             ->where($this->getKeyName(), $this->getKey())
             ->getQuery()
@@ -163,15 +159,6 @@ trait BlameableTrait
      * @return mixed
      */
     abstract public function getKey();
-
-    /**
-     * Determine if the model or given attribute(s) have been modified.
-     *
-     * @param array|string|null $attributes
-     *
-     * @return bool
-     */
-    abstract public function isDirty($attributes = null);
 
     /**
      * Get a new query builder that doesn't have any global scopes.
