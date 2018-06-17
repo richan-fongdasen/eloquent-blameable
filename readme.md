@@ -29,7 +29,10 @@ $ composer require richan-fongdasen/eloquent-blameable
 
 ### Laravel version compatibility
 
-This package supports laravel versions from ``5.1.35`` to ``5.6.*``
+ Laravel version   | Blameable version
+:------------------|:-----------------
+ 5.1.x             | 1.0.x
+ 5.2.x - 5.6.x     | 1.1.x
 
 > If you are using Laravel version 5.5+ then you can skip registering the service provider in your Laravel application.
 
@@ -56,6 +59,24 @@ The command above would copy a new configuration file to ``/config/blameable.php
 
 ```php
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Authentication Guard
+    |--------------------------------------------------------------------------
+    |
+    | Please specify your default authentication guard to be used by blameable
+    | service. You can leave this to null if you're using the default Laravel
+    | authentication guard.
+    |
+    | You can also override this value in model classes to use a different
+    | authentication guard for your specific models.
+    | IE: Some of your models can only be created / updated by specific users
+    | who logged in from a specific authentication guard.
+    |
+    */
+
+    'guard' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -110,6 +131,34 @@ return [
 
 ## Usage
 
+### Add some blameable attributes to your migrations
+
+```php
+Schema::create('some_tables', function (Blueprint $table) {
+    // ...
+    
+    $table->integer('created_by')->nullable();
+    $table->integer('updated_by')->nullable();
+    $table->integer('deleted_by')->nullable();
+
+    // ...
+    
+
+    
+    /**
+     * You can also create foreign key constrains
+     * for the blameable attributes.
+     */
+    $table->foreign('created_by')
+        ->references('id')->on('users')
+        ->onDelete('cascade');
+
+    $table->foreign('updated_by')
+        ->references('id')->on('users')
+        ->onDelete('cascade');
+});
+```
+
 ### Attach Blameable behavior into your Model
 
 ```php
@@ -124,7 +173,22 @@ class Post extends Model
 }
 ```
 
-### Override default configuration
+### Override default configuration using static property
+
+```php
+    /**
+     * You can override the default configuration
+     * by defining this static property in your Model
+     */
+    protected static $blameable = [
+        'guard' => 'customGuard',
+        'user' => \App\User::class,
+        'createdBy' => 'user_id',
+        'updatedBy' => null
+    ];
+```
+
+### Override default configuration using public method
 
 ```php
     /**
@@ -134,6 +198,7 @@ class Post extends Model
     public function blameable()
     {
         return [
+            'guard' => 'customGuard',
             'user' => \App\User::class,
             'createdBy' => 'user_id',
             'updatedBy' => null
