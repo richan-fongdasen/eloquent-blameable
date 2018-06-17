@@ -171,7 +171,7 @@ trait BlameableTrait
      *
      * @return bool
      */
-    abstract public function isDirty();
+    abstract public function isDirty($attributes = null);
 
     /**
      * Get a new query builder that doesn't have any global scopes.
