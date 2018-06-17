@@ -27,7 +27,8 @@ class ServiceTests extends TestCase
             'user' => User::class,
             'createdBy' => 'created_by',
             'updatedBy' => 'updated_by',
-            'deletedBy' => 'deleted_by'
+            'deletedBy' => 'deleted_by',
+            'guard' => null
         ];
 
         $result = $this->invokeMethod($this->service, 'getConfigurations', [new Post()]);
@@ -42,7 +43,8 @@ class ServiceTests extends TestCase
             'user' => User::class,
             'createdBy' => 'creator_id',
             'updatedBy' => 'updater_id',
-            'deletedBy' => 'eraser_id'
+            'deletedBy' => 'eraser_id',
+            'guard' => null
         ];
 
         $result = $this->invokeMethod($this->service, 'getConfigurations', [new PostOverrideAttributes()]);
@@ -57,7 +59,8 @@ class ServiceTests extends TestCase
             'user' => 'App\User',
             'createdBy' => null,
             'updatedBy' => null,
-            'deletedBy' => null
+            'deletedBy' => null,
+            'guard' => null
         ];
 
         $result = $this->invokeMethod($this->service, 'getConfigurations', [new PostWithoutAttributes()]);

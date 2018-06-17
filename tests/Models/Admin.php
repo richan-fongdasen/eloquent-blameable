@@ -23,6 +23,7 @@ class Admin extends Model implements Authenticatable
     public function blameable()
     {
         return [
+            'guard' => 'admin',
             'user' => self::class
         ];
     }

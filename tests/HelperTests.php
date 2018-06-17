@@ -2,14 +2,13 @@
 
 namespace RichanFongdasen\EloquentBlameableTest;
 
+use RichanFongdasen\EloquentBlameableTest\Models\Article;
 use RichanFongdasen\EloquentBlameableTest\Models\Post;
 use RichanFongdasen\EloquentBlameableTest\Models\PostWithoutAttributes;
-
 use RichanFongdasen\EloquentBlameable\BlameableService;
 
 class HelperTests extends TestCase
 {
-
     /** @test */
     public function it_returns_null_as_current_user_identifier()
     {
@@ -38,5 +37,13 @@ class HelperTests extends TestCase
         $this->impersonateUser();
 
         $this->assertNull(blameable_user(new PostWithoutAttributes));
+    }
+
+    /** @test */
+    public function it_returns_current_impersonated_admin_id()
+    {
+        $this->impersonateAdmin();
+
+        $this->assertEquals($this->admin->getKey(), blameable_user(new Article));
     }
 }

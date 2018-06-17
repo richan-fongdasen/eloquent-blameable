@@ -21,7 +21,8 @@ class Article extends Model
     public function blameable()
     {
         return [
-            'user' => Admin::class
+            'guard' => 'admin',
+            'user' => Admin::class,
         ];
     }
 }

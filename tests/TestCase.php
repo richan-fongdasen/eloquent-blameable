@@ -4,10 +4,18 @@ namespace RichanFongdasen\EloquentBlameableTest;
 
 use Illuminate\Database\Eloquent\Factory as ModelFactory;
 use Orchestra\Testbench\TestCase as BaseTest;
+use RichanFongdasen\EloquentBlameableTest\Models\Admin;
 use RichanFongdasen\EloquentBlameableTest\Models\User;
 
 abstract class TestCase extends BaseTest
 {
+    /**
+     * Base admin user
+     *
+     * @var RichanFongdasen\EloquentBlameableTest\Models\Admin
+     */
+    protected $admin;
+
     /**
      * Base user
      *
@@ -36,6 +44,27 @@ abstract class TestCase extends BaseTest
             'database' => ':memory:',
             'prefix' => '',
         ]);
+        $app['config']->set('auth.guards', [
+            'user' => [
+                'driver' => 'session',
+                'provider' => 'user',
+            ],
+            'admin' => [
+                'driver' => 'session',
+                'provider' => 'admin',
+            ]
+        ]);
+        $app['config']->set('auth.providers', [
+            'user' => [
+                'driver' => 'eloquent',
+                'model' => User::class,
+            ],
+            'admin' => [
+                'driver' => 'eloquent',
+                'model' => Admin::class,
+            ]
+        ]);
+        $app['config']->set('auth.defaults.guard', 'user');
     }
 
     /**
@@ -53,14 +82,16 @@ abstract class TestCase extends BaseTest
     }
 
     /**
-     * Impersonate a user before updating a blameable model
+     * Impersonate an admin before updating a blameable model
      *
      * @return void
      */
-    protected function impersonateUser()
+    protected function impersonateAdmin()
     {
-        $this->user = factory(User::class)->create();
-        $this->actingAs($this->user);
+        $this->admin = factory(Admin::class)->create([
+            'id' => rand(300, 900)
+        ]);
+        $this->actingAs($this->admin, 'admin');
     }
 
     /**
@@ -70,8 +101,23 @@ abstract class TestCase extends BaseTest
      */
     protected function impersonateOtherUser()
     {
-        $this->otherUser = factory(User::class)->create();
+        $this->otherUser = factory(User::class)->create([
+            'id' => rand(1000, 2000)
+        ]);
         $this->actingAs($this->otherUser);
+    }
+
+    /**
+     * Impersonate a user before updating a blameable model
+     *
+     * @return void
+     */
+    protected function impersonateUser()
+    {
+        $this->user = factory(User::class)->create([
+            'id' => rand(200, 900)
+        ]);
+        $this->actingAs($this->user);
     }
 
     /**

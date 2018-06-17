@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model;
+use RichanFongdasen\EloquentBlameableTest\Models\Article;
 use RichanFongdasen\EloquentBlameable\BlameableService;
 
 if (!function_exists('blameable_user')) {
@@ -11,7 +12,9 @@ if (!function_exists('blameable_user')) {
      */
     function blameable_user(Model $model)
     {
-        $user = \Auth::user();
+        $guard = app(BlameableService::class)->getConfiguration($model, 'guard');
+
+        $user = ($guard === null) ? \Auth::user() : \Auth::guard($guard)->user();
         $userClass = app(BlameableService::class)->getConfiguration($model, 'user');
 
         if ($user instanceof $userClass) {
