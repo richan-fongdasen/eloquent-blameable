@@ -4,6 +4,7 @@ namespace RichanFongdasen\EloquentBlameable;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 trait BlameableTrait
 {
@@ -92,16 +93,28 @@ trait BlameableTrait
      * Silently update the model without firing any
      * events.
      *
-     * @return void
+     * @return int
      */
     public function silentUpdate()
     {
-        $query = $this->newQueryWithoutScopes()->where($this->getKeyName(), $this->getKey());
-        $dirty = $this->getDirty();
-
-        if (!empty($dirty)) {
-            $query->update($dirty);
+        if (!$this->isDirty()) {
+            return 0;
         }
+
+        return $this->newQueryWithoutScopes()
+            ->where($this->getKeyName(), $this->getKey())
+            ->getQuery()
+            ->update($this->getDirty());
+    }
+
+    /**
+     * Confirm if the current model uses SoftDeletes.
+     *
+     * @return boolean
+     */
+    public function useSoftDeletes()
+    {
+        return in_array(SoftDeletes::class, class_uses($this));
     }
 
     /**
