@@ -11,7 +11,7 @@ class BlameableService
      *
      * @var array
      */
-    private $globalConfig = [];
+    private $globalConfig;
 
     /**
      * Blameable Service Constructor.
@@ -59,9 +59,7 @@ class BlameableService
         $globalConfig = app('config')->get('blameable');
         $defaultConfig = __DIR__.'/../config/blameable.php';
 
-        $this->globalConfig = is_null($globalConfig) ? $globalConfig : require $defaultConfig;
-
-        $this->globalConfig = $globalConfig;
+        $this->globalConfig = is_null($globalConfig) ? require $defaultConfig : $globalConfig;
     }
 
     /**
