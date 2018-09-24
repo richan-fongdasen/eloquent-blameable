@@ -8,7 +8,7 @@ if (!function_exists('blameable_user')) {
      * Get the blameable User identifier.
      *
      * @param Model $model
-     * 
+     *
      * @return mixed
      */
     function blameable_user(Model $model)

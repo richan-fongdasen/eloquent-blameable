@@ -57,7 +57,7 @@ class BlameableService
     public function loadConfig()
     {
         $globalConfig = app('config')->get('blameable');
-        $defaultConfig = __DIR__ . '/../config/blameable.php';
+        $defaultConfig = __DIR__.'/../config/blameable.php';
 
         $this->globalConfig = is_null($globalConfig) ? $globalConfig : require $defaultConfig;
 
