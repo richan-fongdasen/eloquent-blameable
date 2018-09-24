@@ -59,9 +59,7 @@ class BlameableService
         $globalConfig = app('config')->get('blameable');
         $defaultConfig = __DIR__ . '/../config/blameable.php';
 
-        if (is_null($globalConfig) && is_file($defaultConfig)) {
-            $globalConfig = require $defaultConfig;
-        }
+        $this->globalConfig = is_null($globalConfig) ? $globalConfig : require $defaultConfig;
 
         $this->globalConfig = $globalConfig;
     }
