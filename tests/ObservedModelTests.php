@@ -162,10 +162,6 @@ class ObservedModelTests extends TestCase
         $this->assertNull($restoredComment->getAttribute('deleted_by'));
     }
 
-
-
-
-
     /** @test */
     public function it_works_perfectly_on_creating_a_new_user1()
     {
@@ -243,5 +239,14 @@ class ObservedModelTests extends TestCase
         $restoredUser = User::where('id', $user->getKey())->first();
 
         $this->assertNull($restoredUser->getAttribute('deleted_by'));
+    }
+
+    /** @test */
+    public function it_will_set_null_creator_and_null_updater_on_unauthenticated_user()
+    {
+        $post = factory(Post::class)->create();
+
+        $this->assertNull($post->getAttribute('created_by'));
+        $this->assertNull($post->getAttribute('updated_by'));
     }
 }

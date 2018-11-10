@@ -46,4 +46,10 @@ class HelperTests extends TestCase
 
         $this->assertEquals($this->admin->getKey(), blameable_user(new Article));
     }
+
+    /** @test */
+    public function it_returns_null_as_current_user_for_the_unauthenticated_user()
+    {
+        $this->assertNull(blameable_user(new Article));
+    }
 }
