@@ -8,7 +8,7 @@ if (!function_exists('blameable_user')) {
     /**
      * Get the blameable User identifier.
      *
-     * @param  \Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model $model
      *
      * @return mixed
      */
@@ -25,5 +25,4 @@ if (!function_exists('blameable_user')) {
 
         return null;
     }
-
 }
