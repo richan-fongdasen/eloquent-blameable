@@ -25,7 +25,7 @@ class ServiceProvider extends Provider
     {
         if (!$this->isLumen()) {
             $this->publishes([
-                realpath(__DIR__ . '/../config/blameable.php') => config_path('blameable.php'),
+                realpath(__DIR__.'/../config/blameable.php') => config_path('blameable.php'),
             ], 'config');
         }
     }
@@ -37,7 +37,7 @@ class ServiceProvider extends Provider
      */
     public function register()
     {
-        $this->mergeConfigFrom(realpath(__DIR__ . '/../config/blameable.php'), 'blameable');
+        $this->mergeConfigFrom(realpath(__DIR__.'/../config/blameable.php'), 'blameable');
 
         $this->app->singleton(BlameableObserver::class, function () {
             return new BlameableObserver();
