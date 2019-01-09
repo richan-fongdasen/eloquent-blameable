@@ -7,15 +7,27 @@ use Illuminate\Support\ServiceProvider as Provider;
 class ServiceProvider extends Provider
 {
     /**
+     * Check if the application runs with Lumen.
+     *
+     * @return bool
+     */
+    protected function isLumen()
+    {
+        return strpos($this->app->version(), 'Lumen') !== false;
+    }
+
+    /**
      * Bootstrap the application services.
      *
      * @return void
      */
     public function boot()
     {
-        $this->publishes([
-            realpath(__DIR__.'/../config/blameable.php') => config_path('blameable.php'),
-        ], 'config');
+        if (!$this->isLumen()) {
+            $this->publishes([
+                realpath(__DIR__.'/../config/blameable.php') => config_path('blameable.php'),
+            ], 'config');
+        }
     }
 
     /**
