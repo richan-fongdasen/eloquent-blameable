@@ -22,7 +22,12 @@ class TraitTests extends TestCase
     protected $postD;
     protected $postE;
 
-    public function setUp()
+    /**
+     * Setup the test environment
+     *
+     * @return void
+     */
+    public function setUp() :void
     {
         parent::setUp();
 
