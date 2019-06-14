@@ -2,11 +2,11 @@
 
 namespace RichanFongdasen\EloquentBlameableTest;
 
-use RichanFongdasen\EloquentBlameableTest\Models\Comment;
-use RichanFongdasen\EloquentBlameableTest\Models\Post;
-use RichanFongdasen\EloquentBlameableTest\Models\PostOverrideAttributes;
-use RichanFongdasen\EloquentBlameableTest\Models\PostWithoutAttributes;
-use RichanFongdasen\EloquentBlameableTest\Models\User;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\Comment;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\Post;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\PostOverrideAttributes;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\PostWithoutAttributes;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\User;
 use RichanFongdasen\EloquentBlameable\BlameableService;
 
 class ServiceTests extends TestCase

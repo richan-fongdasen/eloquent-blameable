@@ -4,8 +4,8 @@ namespace RichanFongdasen\EloquentBlameableTest;
 
 use Illuminate\Database\Eloquent\Factory as ModelFactory;
 use Orchestra\Testbench\TestCase as BaseTest;
-use RichanFongdasen\EloquentBlameableTest\Models\Admin;
-use RichanFongdasen\EloquentBlameableTest\Models\User;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\Admin;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\User;
 use RichanFongdasen\EloquentBlameable\BlameableService;
 
 abstract class TestCase extends BaseTest
@@ -13,21 +13,21 @@ abstract class TestCase extends BaseTest
     /**
      * Base admin user
      *
-     * @var RichanFongdasen\EloquentBlameableTest\Models\Admin
+     * @var \RichanFongdasen\EloquentBlameableTest\Supports\Models\Admin
      */
     protected $admin;
 
     /**
      * Base user
      *
-     * @var RichanFongdasen\EloquentBlameableTest\Models\User
+     * @var \RichanFongdasen\EloquentBlameableTest\Supports\Models\User
      */
     protected $user;
 
     /**
      * Another user
      *
-     * @var RichanFongdasen\EloquentBlameableTest\Models\User
+     * @var \RichanFongdasen\EloquentBlameableTest\Supports\Models\User
      */
     protected $otherUser;
 
@@ -75,7 +75,7 @@ abstract class TestCase extends BaseTest
      * Define package service provider
      *
      * @param  \Illuminate\Foundation\Application  $app
-     * @return void
+     * @return array
      */
     protected function getPackageProviders($app)
     {
@@ -90,7 +90,7 @@ abstract class TestCase extends BaseTest
      *
      * @return void
      */
-    protected function impersonateAdmin()
+    protected function impersonateAdmin() :void
     {
         $this->admin = factory(Admin::class)->create([
             'id' => rand(300, 900)
@@ -102,11 +102,12 @@ abstract class TestCase extends BaseTest
      * Impersonate another user before updating a blameable model
      *
      * @return void
+     * @throws \Exception
      */
-    protected function impersonateOtherUser()
+    protected function impersonateOtherUser() :void
     {
         $this->otherUser = factory(User::class)->create([
-            'id' => rand(1000, 2000)
+            'id' => random_int(1000, 2000)
         ]);
         $this->actingAs($this->otherUser);
     }
@@ -115,11 +116,12 @@ abstract class TestCase extends BaseTest
      * Impersonate a user before updating a blameable model
      *
      * @return void
+     * @throws \Exception
      */
-    protected function impersonateUser()
+    protected function impersonateUser() :void
     {
         $this->user = factory(User::class)->create([
-            'id' => rand(200, 900)
+            'id' => random_int(200, 900)
         ]);
         $this->actingAs($this->user);
     }
@@ -127,10 +129,11 @@ abstract class TestCase extends BaseTest
     /**
      * Invoke protected / private method of the given object
      *
-     * @param  Object      $object
-     * @param  String      $methodName
-     * @param  Array|array $parameters
+     * @param  Object $object
+     * @param  String $methodName
+     * @param  array  $parameters
      * @return mixed
+     * @throws \Exception
      */
     protected function invokeMethod($object, $methodName, array $parameters = [])
     {
@@ -142,16 +145,39 @@ abstract class TestCase extends BaseTest
     }
 
     /**
+     * Prepare database requirements
+     * to perform any tests.
+     *
+     * @param  string $migrationPath
+     * @param  string $factoryPath
+     * @return void
+     */
+    protected function prepareDatabase($migrationPath, $factoryPath = null) :void
+    {
+        $this->loadMigrationsFrom($migrationPath);
+
+        if (!$factoryPath) {
+            return;
+        }
+
+        if (method_exists($this, 'withFactories')) {
+            $this->withFactories($factoryPath);
+        } else {
+            $this->app->make(ModelFactory::class)->load($factoryPath);
+        }
+    }
+
+    /**
      * Prepare to get an exception in a test
      *
      * @param  mixed $exception
      * @return void
      */
-    protected function prepareException($exception)
+    protected function prepareException($exception) :void
     {
         if (method_exists($this, 'expectException')) {
             $this->expectException($exception);
-        } else {
+        } elseif (method_exists($this, 'setExpectedException')) {
             $this->setExpectedException($exception);
         }
     }
@@ -165,14 +191,9 @@ abstract class TestCase extends BaseTest
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(realpath(__DIR__ . '/../database/migrations'));
-        
-        $factoryDirectory = realpath(__DIR__ . '/../database/factories');
-
-        if (method_exists($this, 'withFactories')) {
-            $this->withFactories($factoryDirectory);
-        } else {
-            $this->app->make(ModelFactory::class)->load($factoryDirectory);
-        }
+        $this->prepareDatabase(
+            realpath(__DIR__.'/Supports/database/migrations'),
+            realpath(__DIR__.'/Supports/database/factories')
+        );
     }
 }

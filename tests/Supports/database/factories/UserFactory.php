@@ -1,8 +1,8 @@
 <?php
 
-$adminClass = \RichanFongdasen\EloquentBlameableTest\Models\Admin::class;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\User;
 
-$factory->define($adminClass, function (\Faker\Generator $faker) {
+$factory->define(User::class, static function (\Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,

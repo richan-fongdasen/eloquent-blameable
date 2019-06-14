@@ -2,13 +2,10 @@
 
 namespace RichanFongdasen\EloquentBlameableTest;
 
-use RichanFongdasen\EloquentBlameableTest\Models\Admin;
-use RichanFongdasen\EloquentBlameableTest\Models\Article;
-use RichanFongdasen\EloquentBlameableTest\Models\Comment;
-use RichanFongdasen\EloquentBlameableTest\Models\Post;
-use RichanFongdasen\EloquentBlameableTest\Models\User;
-use RichanFongdasen\EloquentBlameable\BlameableService;
-use RichanFongdasen\EloquentBlameable\Exceptions\UndefinedUserModelException;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\Admin;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\Article;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\Post;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\User;
 
 class TraitTests extends TestCase
 {
@@ -26,6 +23,7 @@ class TraitTests extends TestCase
      * Setup the test environment
      *
      * @return void
+     * @throws \Exception
      */
     public function setUp() :void
     {

@@ -2,11 +2,9 @@
 
 namespace RichanFongdasen\EloquentBlameableTest;
 
-use RichanFongdasen\EloquentBlameableTest\Models\Comment;
-use RichanFongdasen\EloquentBlameableTest\Models\Post;
-use RichanFongdasen\EloquentBlameableTest\Models\User;
-use RichanFongdasen\EloquentBlameable\BlameableService;
-use RichanFongdasen\EloquentBlameable\Exceptions\UndefinedUserModelException;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\Comment;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\Post;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\User;
 
 class ObservedModelTests extends TestCase
 {
