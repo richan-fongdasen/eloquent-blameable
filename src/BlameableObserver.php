@@ -19,13 +19,13 @@ class BlameableObserver
     }
 
     /**
-     * Listening to any deleting events.
+     * Listening to any deleted events.
      *
      * @param \Illuminate\Database\Eloquent\Model $model
      *
      * @return void
      */
-    public function deleting(Model $model) :void
+    public function deleted(Model $model) :void
     {
         app(BlameableService::class)->setAttribute($model, 'deletedBy', blameable_user($model));
 

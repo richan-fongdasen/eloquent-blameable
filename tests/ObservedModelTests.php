@@ -3,6 +3,7 @@
 namespace RichanFongdasen\EloquentBlameableTest;
 
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\Comment;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\News;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\Post;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\User;
 
@@ -246,5 +247,20 @@ class ObservedModelTests extends TestCase
 
         $this->assertNull($post->getAttribute('created_by'));
         $this->assertNull($post->getAttribute('updated_by'));
+    }
+
+    /** @test */
+    public function it_wont_cause_any_error_when_deleting_model_without_soft_deletes()
+    {
+        $this->impersonateAdmin();
+
+        $news = factory(News::class)->create();
+        $news->delete();
+        $news->fresh();
+
+        $this->assertEquals($this->admin->getKey(), $news->getAttribute('created_by'));
+        $this->assertEquals($this->admin->getKey(), $news->getAttribute('updated_by'));
+        $this->assertFalse($news->exists);
+        $this->assertCount(0, $news->getDirty());
     }
 }
