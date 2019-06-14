@@ -34,7 +34,7 @@ before_script:
 
 script:
   - composer analyse
-  - if [[ $COVERAGE != '1' ]]; thenvendor/bin/phpunit; fi
+  - if [[ $COVERAGE != '1' ]]; then vendor/bin/phpunit; fi
   - if [[ $COVERAGE = '1' ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=clover.xml; fi
 
 after_script:
