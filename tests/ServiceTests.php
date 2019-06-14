@@ -105,7 +105,7 @@ class ServiceTests extends TestCase
     {
         $this->impersonateUser();
         $model = new Post();
-        $result = $this->service->setAttribute($model, 'createdBy');
+        $result = $this->service->setAttribute($model, 'createdBy', blameable_user($model));
 
         $this->assertEquals($this->user->getKey(), $model->getAttribute('created_by'));
         $this->assertTrue($result);
@@ -116,7 +116,7 @@ class ServiceTests extends TestCase
     {
         $this->impersonateUser();
         $model = new Post();
-        $result = $this->service->setAttribute($model, 'createdBy', true);
+        $result = $this->service->setAttribute($model, 'createdBy', null);
 
         $this->assertNull($model->getAttribute('created_by'));
         $this->assertTrue($result);
@@ -127,7 +127,7 @@ class ServiceTests extends TestCase
     {
         $this->impersonateUser();
         $model = new PostOverrideAttributes();
-        $result = $this->service->setAttribute($model, 'createdBy');
+        $result = $this->service->setAttribute($model, 'createdBy', blameable_user($model));
 
         $this->assertEquals($this->user->getKey(), $model->getAttribute('creator_id'));
         $this->assertTrue($result);
@@ -138,7 +138,7 @@ class ServiceTests extends TestCase
     {
         $this->impersonateUser();
         $model = new PostWithoutAttributes();
-        $result = $this->service->setAttribute($model, 'createdBy');
+        $result = $this->service->setAttribute($model, 'createdBy', blameable_user($model));
 
         $this->assertNull($model->getAttribute('created_by'));
         $this->assertNull($model->getAttribute('creator_id'));

@@ -11,7 +11,7 @@ class ServiceProvider extends Provider
      *
      * @return bool
      */
-    protected function isLumen()
+    protected function isLumen() :bool
     {
         return strpos($this->app->version(), 'Lumen') !== false;
     }
@@ -21,11 +21,11 @@ class ServiceProvider extends Provider
      *
      * @return void
      */
-    public function boot()
+    public function boot() :void
     {
         if (!$this->isLumen()) {
             $this->publishes([
-                realpath(__DIR__.'/../config/blameable.php') => config_path('blameable.php'),
+                realpath(dirname(__DIR__).'/config/blameable.php') => config_path('blameable.php'),
             ], 'config');
         }
     }
@@ -35,9 +35,13 @@ class ServiceProvider extends Provider
      *
      * @return void
      */
-    public function register()
+    public function register() :void
     {
-        $this->mergeConfigFrom(realpath(__DIR__.'/../config/blameable.php'), 'blameable');
+        $configPath = realpath(dirname(__DIR__).'/config/blameable.php');
+
+        if ($configPath !== false) {
+            $this->mergeConfigFrom($configPath, 'blameable');
+        }
 
         $this->app->singleton(BlameableObserver::class, function () {
             return new BlameableObserver();

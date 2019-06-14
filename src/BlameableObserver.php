@@ -13,23 +13,26 @@ class BlameableObserver
      *
      * @return void
      */
-    public function creating(Model $model)
+    public function creating(Model $model) :void
     {
-        app(BlameableService::class)->setAttribute($model, 'createdBy');
+        app(BlameableService::class)->setAttribute($model, 'createdBy', blameable_user($model));
     }
 
     /**
-     * Listening to any deleted events.
+     * Listening to any deleting events.
      *
      * @param \Illuminate\Database\Eloquent\Model $model
      *
      * @return void
      */
-    public function deleted(Model $model)
+    public function deleting(Model $model) :void
     {
-        app(BlameableService::class)->setAttribute($model, 'deletedBy');
+        app(BlameableService::class)->setAttribute($model, 'deletedBy', blameable_user($model));
 
-        if ($model->useSoftDeletes() && $model->isDirty()) {
+        if (
+            method_exists($model, 'useSoftDeletes') && method_exists($model, 'silentUpdate') &&
+            $model->useSoftDeletes() && $model->isDirty()
+        ) {
             $model->silentUpdate();
         }
     }
@@ -41,9 +44,9 @@ class BlameableObserver
      *
      * @return void
      */
-    public function restoring(Model $model)
+    public function restoring(Model $model) :void
     {
-        app(BlameableService::class)->setAttribute($model, 'deletedBy', true);
+        app(BlameableService::class)->setAttribute($model, 'deletedBy', null);
     }
 
     /**
@@ -53,8 +56,8 @@ class BlameableObserver
      *
      * @return void
      */
-    public function saving(Model $model)
+    public function saving(Model $model) :void
     {
-        app(BlameableService::class)->setAttribute($model, 'updatedBy');
+        app(BlameableService::class)->setAttribute($model, 'updatedBy', blameable_user($model));
     }
 }
