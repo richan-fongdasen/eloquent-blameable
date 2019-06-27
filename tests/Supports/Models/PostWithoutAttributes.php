@@ -1,6 +1,6 @@
 <?php
 
-namespace RichanFongdasen\EloquentBlameableTest\Models;
+namespace RichanFongdasen\EloquentBlameableTest\Supports\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use RichanFongdasen\EloquentBlameable\BlameableTrait;

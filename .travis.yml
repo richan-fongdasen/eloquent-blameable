@@ -33,7 +33,8 @@ before_script:
   - set +H
 
 script:
-  - vendor/bin/phpunit
+  - composer analyse
+  - if [[ $COVERAGE != '1' ]]; then vendor/bin/phpunit; fi
   - if [[ $COVERAGE = '1' ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=clover.xml; fi
 
 after_script:

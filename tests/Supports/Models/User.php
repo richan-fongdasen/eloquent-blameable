@@ -1,11 +1,11 @@
 <?php
 
-namespace RichanFongdasen\EloquentBlameableTest\Models;
+namespace RichanFongdasen\EloquentBlameableTest\Supports\Models;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use RichanFongdasen\EloquentBlameableTest\Models\Extensions\AuthenticatableTrait;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\Extensions\AuthenticatableTrait;
 use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
 class User extends Model implements Authenticatable

@@ -1,6 +1,6 @@
 <?php
 
-namespace RichanFongdasen\EloquentBlameableTest\Models\Extensions;
+namespace RichanFongdasen\EloquentBlameableTest\Supports\Models\Extensions;
 
 trait AuthenticatableTrait
 {

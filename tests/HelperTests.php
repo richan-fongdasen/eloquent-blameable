@@ -2,10 +2,9 @@
 
 namespace RichanFongdasen\EloquentBlameableTest;
 
-use RichanFongdasen\EloquentBlameableTest\Models\Article;
-use RichanFongdasen\EloquentBlameableTest\Models\Post;
-use RichanFongdasen\EloquentBlameableTest\Models\PostWithoutAttributes;
-use RichanFongdasen\EloquentBlameable\BlameableService;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\Article;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\Post;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\PostWithoutAttributes;
 
 class HelperTests extends TestCase
 {

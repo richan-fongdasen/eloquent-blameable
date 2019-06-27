@@ -16,10 +16,10 @@ if (!function_exists('blameable_user')) {
     {
         $guard = app(BlameableService::class)->getConfiguration($model, 'guard');
 
-        $user = ($guard === null) ? \Auth::user() : \Auth::guard($guard)->user();
+        $user = ($guard === null) ? app('auth')->user() : app('auth')->guard($guard)->user();
         $userClass = app(BlameableService::class)->getConfiguration($model, 'user');
 
-        if ($user instanceof $userClass) {
+        if (($user instanceof Model) && ($user instanceof $userClass)) {
             return $user->getKey();
         }
 

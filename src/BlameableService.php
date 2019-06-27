@@ -28,7 +28,7 @@ class BlameableService
      *
      * @return array
      */
-    private function getConfigurations(Model $model)
+    private function getConfigurations(Model $model) :array
     {
         $modelConfigurations = method_exists($model, 'blameable') ?
             $model->blameable() : [];
@@ -42,9 +42,9 @@ class BlameableService
      * @param \Illuminate\Database\Eloquent\Model $model
      * @param string                              $key
      *
-     * @return string
+     * @return mixed
      */
-    public function getConfiguration(Model $model, $key)
+    public function getConfiguration(Model $model, string $key)
     {
         return data_get($this->getConfigurations($model), $key);
     }
@@ -54,7 +54,7 @@ class BlameableService
      *
      * @return void
      */
-    public function loadConfig()
+    public function loadConfig() :void
     {
         $this->globalConfig = app('config')->get('blameable');
     }
@@ -62,19 +62,18 @@ class BlameableService
     /**
      * Set Model's attribute value for the given key.
      *
-     * @param Model  $model
-     * @param string $key
-     * @param bool   $reset
+     * @param Model    $model
+     * @param string   $key
+     * @param int|null $userId
      *
      * @return bool
      */
-    public function setAttribute(Model $model, $key, $reset = false)
+    public function setAttribute(Model $model, string $key, $userId) :bool
     {
         $attribute = $this->getConfiguration($model, $key);
 
-        if ($attribute) {
-            $value = $reset ? null : blameable_user($model);
-            $model->setAttribute($attribute, $value);
+        if ($attribute !== null) {
+            $model->setAttribute($attribute, $userId);
         }
 
         return $model->isDirty($attribute);
