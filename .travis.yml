@@ -6,11 +6,11 @@ matrix:
   fast_finish: true
   include:
     - php: 7.2
-      env: LARAVEL=5.8.* ORCHESTRA=3.8.* ORCHESTRA_DB=3.8.*
+      env: LARAVEL=5.8.* ORCHESTRA=3.8.*
     - php: 7.2
-      env: LARAVEL=6.0.* ORCHESTRA=4.0.* ORCHESTRA_DB=3.8.* COVERAGE=1
+      env: LARAVEL=6.0.* ORCHESTRA=4.0.* COVERAGE=1
     - php: 7.3
-      env: LARAVEL=6.0.* ORCHESTRA=4.0.* ORCHESTRA_DB=3.8.*
+      env: LARAVEL=6.0.* ORCHESTRA=4.0.*
 
   allow_failures:
     - env: COVERAGE=1
@@ -22,7 +22,7 @@ before_install:
 before_script:
   - if [[ -v LARAVEL ]]; then composer require laravel/framework:$LARAVEL --no-update; fi
   - if [[ -v ORCHESTRA ]]; then composer require orchestra/testbench:$ORCHESTRA --no-update; fi
-  - if [[ -v ORCHESTRA_DB ]]; then composer require orchestra/database:$ORCHESTRA_DB --no-update; fi
+  - if [[ -v ORCHESTRA_DB ]]; then composer require orchestra/database:$ORCHESTRA --no-update; fi
 
   - travis_retry composer install --no-interaction --prefer-source
   - phpenv rehash
