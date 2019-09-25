@@ -125,7 +125,7 @@ trait BlameableTrait
      */
     public function useSoftDeletes() :bool
     {
-        return in_array(SoftDeletes::class, class_uses($this), true);
+        return in_array(SoftDeletes::class, class_uses_recursive($this), true);
     }
 
     /**
