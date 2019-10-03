@@ -8,9 +8,9 @@ matrix:
     - php: 7.2
       env: LARAVEL=5.8.* ORCHESTRA=3.8.*
     - php: 7.2
-      env: LARAVEL=6.0.* ORCHESTRA=4.0.* COVERAGE=1
+      env: LARAVEL=^6.0 ORCHESTRA=^4.0 COVERAGE=1
     - php: 7.3
-      env: LARAVEL=6.0.* ORCHESTRA=4.0.*
+      env: LARAVEL=^6.0 ORCHESTRA=^4.0
 
   allow_failures:
     - env: COVERAGE=1
