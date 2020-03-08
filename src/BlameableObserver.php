@@ -13,7 +13,7 @@ class BlameableObserver
      *
      * @return void
      */
-    public function creating(Model $model) :void
+    public function creating(Model $model): void
     {
         app(BlameableService::class)->setAttribute($model, 'createdBy', blameable_user($model));
     }
@@ -25,7 +25,7 @@ class BlameableObserver
      *
      * @return void
      */
-    public function deleted(Model $model) :void
+    public function deleted(Model $model): void
     {
         app(BlameableService::class)->setAttribute($model, 'deletedBy', blameable_user($model));
 
@@ -44,7 +44,7 @@ class BlameableObserver
      *
      * @return void
      */
-    public function restoring(Model $model) :void
+    public function restoring(Model $model): void
     {
         app(BlameableService::class)->setAttribute($model, 'deletedBy', null);
     }
@@ -56,7 +56,7 @@ class BlameableObserver
      *
      * @return void
      */
-    public function saving(Model $model) :void
+    public function saving(Model $model): void
     {
         app(BlameableService::class)->setAttribute($model, 'updatedBy', blameable_user($model));
     }

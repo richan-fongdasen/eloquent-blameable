@@ -11,7 +11,7 @@ class ServiceProvider extends Provider
      *
      * @return bool
      */
-    protected function isLumen() :bool
+    protected function isLumen(): bool
     {
         return strpos($this->app->version(), 'Lumen') !== false;
     }
@@ -21,7 +21,7 @@ class ServiceProvider extends Provider
      *
      * @return void
      */
-    public function boot() :void
+    public function boot(): void
     {
         if (!$this->isLumen()) {
             $this->publishes([
@@ -35,7 +35,7 @@ class ServiceProvider extends Provider
      *
      * @return void
      */
-    public function register() :void
+    public function register(): void
     {
         $configPath = realpath(dirname(__DIR__).'/config/blameable.php');
 

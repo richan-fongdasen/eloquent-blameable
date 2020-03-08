@@ -14,7 +14,7 @@ trait BlameableTrait
      *
      * @return array
      */
-    public function blameable() :array
+    public function blameable(): array
     {
         if (property_exists($this, 'blameable')) {
             return (array) static::$blameable;
@@ -29,7 +29,7 @@ trait BlameableTrait
      *
      * @return void
      */
-    public static function bootBlameableTrait() :void
+    public static function bootBlameableTrait(): void
     {
         static::observe(app(BlameableObserver::class));
     }
@@ -43,7 +43,7 @@ trait BlameableTrait
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    private function buildBlameableScope(Builder $query, $userId, $key) :Builder
+    private function buildBlameableScope(Builder $query, $userId, $key): Builder
     {
         if ($userId instanceof Model) {
             $userId = $userId->getKey();
@@ -57,7 +57,7 @@ trait BlameableTrait
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function creator() :BelongsTo
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(
             app(BlameableService::class)->getConfiguration($this, 'user'),
@@ -70,7 +70,7 @@ trait BlameableTrait
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function updater() :BelongsTo
+    public function updater(): BelongsTo
     {
         return $this->belongsTo(
             app(BlameableService::class)->getConfiguration($this, 'user'),
@@ -86,7 +86,7 @@ trait BlameableTrait
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeCreatedBy(Builder $query, $userId) :Builder
+    public function scopeCreatedBy(Builder $query, $userId): Builder
     {
         return $this->buildBlameableScope($query, $userId, 'createdBy');
     }
@@ -99,7 +99,7 @@ trait BlameableTrait
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeUpdatedBy(Builder $query, $userId) :Builder
+    public function scopeUpdatedBy(Builder $query, $userId): Builder
     {
         return $this->buildBlameableScope($query, $userId, 'updatedBy');
     }
@@ -110,7 +110,7 @@ trait BlameableTrait
      *
      * @return int
      */
-    public function silentUpdate() :int
+    public function silentUpdate(): int
     {
         return $this->newQueryWithoutScopes()
             ->where($this->getKeyName(), $this->getKey())
@@ -123,7 +123,7 @@ trait BlameableTrait
      *
      * @return bool
      */
-    public function useSoftDeletes() :bool
+    public function useSoftDeletes(): bool
     {
         return in_array(SoftDeletes::class, class_uses_recursive($this), true);
     }
