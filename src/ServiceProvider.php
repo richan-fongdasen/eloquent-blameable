@@ -43,11 +43,11 @@ class ServiceProvider extends Provider
             $this->mergeConfigFrom($configPath, 'blameable');
         }
 
-        $this->app->singleton(BlameableObserver::class, function () {
+        $this->app->singleton(BlameableObserver::class, function (): BlameableObserver {
             return new BlameableObserver();
         });
 
-        $this->app->singleton(BlameableService::class, function () {
+        $this->app->singleton(BlameableService::class, function (): BlameableService {
             return new BlameableService();
         });
     }

@@ -9,7 +9,7 @@ class BlameableService
     /**
      * Global configurations from config/blameable.php.
      *
-     * @var array
+     * @var array<string>
      */
     private $globalConfig;
 
@@ -26,7 +26,7 @@ class BlameableService
      *
      * @param \Illuminate\Database\Eloquent\Model $model
      *
-     * @return array
+     * @return array<string>
      */
     private function getConfigurations(Model $model) :array
     {
