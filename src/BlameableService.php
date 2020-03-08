@@ -9,7 +9,7 @@ class BlameableService
     /**
      * Global configurations from config/blameable.php.
      *
-     * @var array
+     * @var array<string>
      */
     private $globalConfig;
 
@@ -26,9 +26,9 @@ class BlameableService
      *
      * @param \Illuminate\Database\Eloquent\Model $model
      *
-     * @return array
+     * @return array<string>
      */
-    private function getConfigurations(Model $model) :array
+    private function getConfigurations(Model $model): array
     {
         $modelConfigurations = method_exists($model, 'blameable') ?
             $model->blameable() : [];
@@ -54,7 +54,7 @@ class BlameableService
      *
      * @return void
      */
-    public function loadConfig() :void
+    public function loadConfig(): void
     {
         $this->globalConfig = app('config')->get('blameable');
     }
@@ -68,7 +68,7 @@ class BlameableService
      *
      * @return bool
      */
-    public function setAttribute(Model $model, string $key, $userId) :bool
+    public function setAttribute(Model $model, string $key, $userId): bool
     {
         $attribute = $this->getConfiguration($model, $key);
 
