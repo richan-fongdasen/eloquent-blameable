@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.org/richan-fongdasen/eloquent-blameable.svg?branch=master)](https://travis-ci.org/richan-fongdasen/eloquent-blameable) 
-[![codecov](https://codecov.io/gh/richan-fongdasen/eloquent-blameable/branch/master/graph/badge.svg)](https://codecov.io/gh/richan-fongdasen/eloquent-blameable) 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/richan-fongdasen/eloquent-blameable/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/richan-fongdasen/eloquent-blameable/?branch=master) 
-[![Total Downloads](https://poser.pugx.org/richan-fongdasen/eloquent-blameable/d/total.svg)](https://packagist.org/packages/richan-fongdasen/eloquent-blameable) 
-[![Latest Stable Version](https://poser.pugx.org/richan-fongdasen/eloquent-blameable/v/stable.svg)](https://packagist.org/packages/richan-fongdasen/eloquent-blameable) 
-[![License: MIT](https://poser.pugx.org/laravel/framework/license.svg)](https://opensource.org/licenses/MIT) 
+[![Build Status](https://travis-ci.org/richan-fongdasen/eloquent-blameable.svg?branch=master)](https://travis-ci.org/richan-fongdasen/eloquent-blameable)
+[![codecov](https://codecov.io/gh/richan-fongdasen/eloquent-blameable/branch/master/graph/badge.svg)](https://codecov.io/gh/richan-fongdasen/eloquent-blameable)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/richan-fongdasen/eloquent-blameable/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/richan-fongdasen/eloquent-blameable/?branch=master)
+[![Total Downloads](https://poser.pugx.org/richan-fongdasen/eloquent-blameable/d/total.svg)](https://packagist.org/packages/richan-fongdasen/eloquent-blameable)
+[![Latest Stable Version](https://poser.pugx.org/richan-fongdasen/eloquent-blameable/v/stable.svg)](https://packagist.org/packages/richan-fongdasen/eloquent-blameable)
+[![License: MIT](https://poser.pugx.org/laravel/framework/license.svg)](https://opensource.org/licenses/MIT)
 
 # Eloquent Blameable
 
@@ -15,32 +15,34 @@ This package would help you to track the creator and updater of each database re
 
 ## Table of contents
 
-* [Setup](#setup)
-* [Configuration](#configuration)
-* [Usage](#usage)
-* [License](#license)
+- [Setup](#setup)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [License](#license)
 
 ## Setup
 
 Install the package via Composer :
+
 ```sh
 $ composer require richan-fongdasen/eloquent-blameable
 ```
 
 ### Laravel version compatibility
 
- Laravel version   | Blameable version
-:------------------|:-----------------
- 5.1.x             | 1.0.x
- 5.2.x - 5.4.x     | 1.1.x - 1.2.x
- 5.5.x - 5.8.x     | 1.3.x
- 6.0.x             | 1.4.x
+| Laravel version | Blameable version |
+| :-------------- | :---------------- |
+| 5.1.x           | 1.0.x             |
+| 5.2.x - 5.4.x   | 1.1.x - 1.2.x     |
+| 5.5.x - 5.8.x   | 1.3.x             |
+| 6.x             | 1.4.x             |
+| 7.x             | 1.5.x             |
 
 > If you are using Laravel version 5.5+ then you can skip registering the service provider in your Laravel application.
 
 ### Service Provider
 
-Add the package service provider in your ``config/app.php``
+Add the package service provider in your `config/app.php`
 
 ```php
 'providers' => [
@@ -51,13 +53,13 @@ Add the package service provider in your ``config/app.php``
 
 ## Configuration
 
-Publish configuration file using ``php artisan`` command
+Publish configuration file using `php artisan` command
 
 ```sh
 $ php artisan vendor:publish --provider="RichanFongdasen\EloquentBlameable\ServiceProvider"
 ```
 
-The command above would copy a new configuration file to ``/config/blameable.php``
+The command above would copy a new configuration file to `/config/blameable.php`
 
 ```php
 return [
@@ -138,15 +140,15 @@ return [
 ```php
 Schema::create('some_tables', function (Blueprint $table) {
     // ...
-    
+
     $table->integer('created_by')->nullable();
     $table->integer('updated_by')->nullable();
     $table->integer('deleted_by')->nullable();
 
     // ...
-    
 
-    
+
+
     /**
      * You can also create foreign key constrains
      * for the blameable attributes.
