@@ -35,7 +35,7 @@
     "phpstan/phpstan-deprecation-rules": "^0.11|^0.12",
     "phpstan/phpstan-strict-rules": "^0.11|^0.12",
     "phpunit/phpunit": "^9.0 || ^8.0",
-    "sebastian/phpcpd": "^5.0"
+    "sebastian/phpcpd": "^5.0 || ^6.0"
   },
   "config": {
     "sort-packages": true
