@@ -13,7 +13,7 @@ class ObservedModelTests extends TestCase
     public function it_works_perfectly_on_creating_a_new_post()
     {
         $this->impersonateUser();
-        $post = factory(Post::class)->create();
+        $post = Post::factory()->create();
 
         $this->assertFalse($post->isDirty('created_by'));
         $this->assertFalse($post->isDirty('updated_by'));
@@ -25,7 +25,7 @@ class ObservedModelTests extends TestCase
     public function it_works_perfectly_on_updating_existing_post()
     {
         $this->impersonateUser();
-        $post = factory(Post::class)->create();
+        $post = Post::factory()->create();
 
         $this->impersonateOtherUser();
         $post->setAttribute('title', 'Another Title');
@@ -41,7 +41,7 @@ class ObservedModelTests extends TestCase
     public function it_works_perfectly_on_deleting_post1()
     {
         $this->impersonateUser();
-        $post = factory(Post::class)->create();
+        $post = Post::factory()->create();
 
         $post->delete();
         $deletedPost = Post::onlyTrashed()->where('id', $post->getKey())->first();
@@ -53,7 +53,7 @@ class ObservedModelTests extends TestCase
     public function it_works_perfectly_on_deleting_post2()
     {
         $this->impersonateUser();
-        $post = factory(Post::class)->create();
+        $post = Post::factory()->create();
 
         $this->impersonateOtherUser();
         $post->delete();
@@ -67,7 +67,7 @@ class ObservedModelTests extends TestCase
     public function it_works_perfectly_on_restoring_deleted_post()
     {
         $this->impersonateUser();
-        $post = factory(Post::class)->create();
+        $post = Post::factory()->create();
 
         $this->impersonateOtherUser();
         $post->delete();
@@ -81,7 +81,7 @@ class ObservedModelTests extends TestCase
     public function it_works_perfectly_on_creating_a_new_comment()
     {
         $this->impersonateUser();
-        $comment = factory(Comment::class)->create([
+        $comment = Comment::factory()->create([
             'post_id' => 100
         ]);
 
@@ -95,8 +95,8 @@ class ObservedModelTests extends TestCase
     public function it_works_perfectly_on_updating_existing_comment()
     {
         $this->impersonateUser();
-        $post = factory(Post::class)->create();
-        $comment = factory(Comment::class)->create([
+        $post = Post::factory()->create();
+        $comment = Comment::factory()->create([
             'post_id' => $post->getKey()
         ]);
 
@@ -119,7 +119,7 @@ class ObservedModelTests extends TestCase
     public function it_works_perfectly_on_deleting_comment1()
     {
         $this->impersonateUser();
-        $comment = factory(Comment::class)->create([
+        $comment = Comment::factory()->create([
             'post_id' => 100
         ]);
 
@@ -133,7 +133,7 @@ class ObservedModelTests extends TestCase
     public function it_works_perfectly_on_deleting_comment2()
     {
         $this->impersonateUser();
-        $comment = factory(Comment::class)->create([
+        $comment = Comment::factory()->create([
             'post_id' => 100
         ]);
 
@@ -149,7 +149,7 @@ class ObservedModelTests extends TestCase
     public function it_works_perfectly_on_restoring_deleted_comment()
     {
         $this->impersonateUser();
-        $comment = factory(Comment::class)->create([
+        $comment = Comment::factory()->create([
             'post_id' => 100
         ]);
 
@@ -188,7 +188,7 @@ class ObservedModelTests extends TestCase
     public function it_works_perfectly_on_updating_existing_user()
     {
         $this->impersonateUser();
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->impersonateOtherUser();
         $user->setAttribute('email', 'another@email.com');
@@ -204,7 +204,7 @@ class ObservedModelTests extends TestCase
     public function it_works_perfectly_on_deleting_user1()
     {
         $this->impersonateUser();
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $user->delete();
         $deletedUser = User::onlyTrashed()->where('id', $user->getKey())->first();
@@ -216,7 +216,7 @@ class ObservedModelTests extends TestCase
     public function it_works_perfectly_on_deleting_user2()
     {
         $this->impersonateUser();
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->impersonateOtherUser();
         $user->delete();
@@ -230,7 +230,7 @@ class ObservedModelTests extends TestCase
     public function it_works_perfectly_on_restoring_deleted_user()
     {
         $this->impersonateUser();
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->impersonateOtherUser();
         $user->delete();
@@ -243,7 +243,7 @@ class ObservedModelTests extends TestCase
     /** @test */
     public function it_will_set_null_creator_and_null_updater_on_unauthenticated_user()
     {
-        $post = factory(Post::class)->create();
+        $post = Post::factory()->create();
 
         $this->assertNull($post->getAttribute('created_by'));
         $this->assertNull($post->getAttribute('updated_by'));
@@ -254,7 +254,7 @@ class ObservedModelTests extends TestCase
     {
         $this->impersonateAdmin();
 
-        $news = factory(News::class)->create();
+        $news = News::factory()->create();
         $news->delete();
         $news->fresh();
 

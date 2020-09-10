@@ -30,18 +30,18 @@ class TraitTests extends TestCase
         parent::setUp();
 
         $this->impersonateAdmin();
-        $this->articleA = factory(Article::class)->create();
-        $this->articleB = factory(Article::class)->create();
-        $this->articleC = factory(Article::class)->create();
+        $this->articleA = Article::factory()->create();
+        $this->articleB = Article::factory()->create();
+        $this->articleC = Article::factory()->create();
 
         $this->impersonateUser();
-        $this->postA = factory(Post::class)->create();
-        $this->postB = factory(Post::class)->create();
-        $this->postC = factory(Post::class)->create();
+        $this->postA = Post::factory()->create();
+        $this->postB = Post::factory()->create();
+        $this->postC = Post::factory()->create();
 
         $this->impersonateOtherUser();
-        $this->postD = factory(Post::class)->create();
-        $this->postE = factory(Post::class)->create();
+        $this->postD = Post::factory()->create();
+        $this->postE = Post::factory()->create();
         $this->postB->save();
     }
 
