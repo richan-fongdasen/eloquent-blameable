@@ -2,6 +2,7 @@
 
 namespace RichanFongdasen\EloquentBlameableTest;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factory as ModelFactory;
 use Orchestra\Testbench\TestCase as BaseTest;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\Admin;
@@ -92,7 +93,7 @@ abstract class TestCase extends BaseTest
      */
     protected function impersonateAdmin() :void
     {
-        $this->admin = factory(Admin::class)->create([
+        $this->admin = Admin::factory()->create([
             'id' => rand(300, 900)
         ]);
         $this->actingAs($this->admin, 'admin');
@@ -106,7 +107,7 @@ abstract class TestCase extends BaseTest
      */
     protected function impersonateOtherUser() :void
     {
-        $this->otherUser = factory(User::class)->create([
+        $this->otherUser = User::factory()->create([
             'id' => random_int(1000, 2000)
         ]);
         $this->actingAs($this->otherUser);
@@ -120,7 +121,7 @@ abstract class TestCase extends BaseTest
      */
     protected function impersonateUser() :void
     {
-        $this->user = factory(User::class)->create([
+        $this->user = User::factory()->create([
             'id' => random_int(200, 900)
         ]);
         $this->actingAs($this->user);
@@ -149,22 +150,11 @@ abstract class TestCase extends BaseTest
      * to perform any tests.
      *
      * @param  string $migrationPath
-     * @param  string $factoryPath
      * @return void
      */
-    protected function prepareDatabase($migrationPath, $factoryPath = null) :void
+    protected function prepareDatabase($migrationPath) :void
     {
         $this->loadMigrationsFrom($migrationPath);
-
-        if (!$factoryPath) {
-            return;
-        }
-
-        if (method_exists($this, 'withFactories')) {
-            $this->withFactories($factoryPath);
-        } else {
-            $this->app->make(ModelFactory::class)->load($factoryPath);
-        }
     }
 
     /**
@@ -191,9 +181,10 @@ abstract class TestCase extends BaseTest
     {
         parent::setUp();
 
-        $this->prepareDatabase(
-            realpath(__DIR__.'/Supports/database/migrations'),
-            realpath(__DIR__.'/Supports/database/factories')
-        );
+        $this->prepareDatabase(realpath(__DIR__.'/Supports/Migrations'));
+
+        Factory::guessFactoryNamesUsing(function (string $modelName) {
+            return 'Database\\Factories\\' . class_basename($modelName) . 'Factory';
+        });
     }
 }
