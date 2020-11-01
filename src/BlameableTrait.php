@@ -49,7 +49,7 @@ trait BlameableTrait
             $userId = $userId->getKey();
         }
 
-        return $query->where(app(BlameableService::class)->getConfiguration($this, $key), $userId);
+        return $query->where($this->getTable().'.'.app(BlameableService::class)->getConfiguration($this, $key), $userId);
     }
 
     /**
