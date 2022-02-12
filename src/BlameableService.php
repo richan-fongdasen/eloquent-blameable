@@ -39,8 +39,8 @@ class BlameableService
     /**
      * Set Model's attribute value for the given key.
      *
-     * @param Model    $model
-     * @param string   $key
+     * @param Model           $model
+     * @param string          $key
      * @param int|string|null $userId
      *
      * @return bool
