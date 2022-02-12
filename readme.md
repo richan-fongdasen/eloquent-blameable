@@ -1,3 +1,4 @@
+
 ![CI](https://github.com/richan-fongdasen/eloquent-blameable/workflows/CI/badge.svg?branch=master) 
 [![codecov](https://codecov.io/gh/richan-fongdasen/eloquent-blameable/branch/master/graph/badge.svg)](https://codecov.io/gh/richan-fongdasen/eloquent-blameable)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/richan-fongdasen/eloquent-blameable/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/richan-fongdasen/eloquent-blameable/?branch=master)
@@ -31,13 +32,14 @@ $ composer require richan-fongdasen/eloquent-blameable
 ### Laravel version compatibility
 
 | Laravel version | Blameable version |
-| :-------------- | :---------------- |
+|:----------------|:------------------|
 | 5.1.x           | 1.0.x             |
 | 5.2.x - 5.4.x   | 1.1.x - 1.2.x     |
 | 5.5.x - 5.8.x   | 1.3.x             |
 | 6.x             | 1.4.x             |
 | 7.x             | 1.5.x             |
 | 8.x             | 1.6.x             |
+| 9.x             | 1.8.x             |
 
 > If you are using Laravel version 5.5+ then you can skip registering the service provider in your Laravel application.
 
