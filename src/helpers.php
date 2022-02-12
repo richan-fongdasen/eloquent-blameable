@@ -10,17 +10,19 @@ if (!function_exists('blameable_user')) {
      *
      * @param \Illuminate\Database\Eloquent\Model $model
      *
-     * @return mixed
+     * @return int|string|null
      */
     function blameable_user(Model $model)
     {
         $guard = app(BlameableService::class)->getConfiguration($model, 'guard');
 
         $user = ($guard === null) ? app('auth')->user() : app('auth')->guard($guard)->user();
-        $userClass = app(BlameableService::class)->getConfiguration($model, 'user');
+        $userClass = (string) app(BlameableService::class)->getConfiguration($model, 'user');
 
         if (($user instanceof Model) && ($user instanceof $userClass)) {
-            return $user->getKey();
+            $userId = $user->getKey();
+
+            return (is_int($userId) || is_string($userId)) ? $userId : null;
         }
 
         return null;

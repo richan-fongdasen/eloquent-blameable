@@ -3,11 +3,9 @@
 namespace RichanFongdasen\EloquentBlameableTest;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Factory as ModelFactory;
 use Orchestra\Testbench\TestCase as BaseTest;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\Admin;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\User;
-use RichanFongdasen\EloquentBlameable\BlameableService;
 
 abstract class TestCase extends BaseTest
 {
@@ -68,8 +66,6 @@ abstract class TestCase extends BaseTest
         ]);
         $app['config']->set('auth.defaults.guard', 'user');
         $app['config']->set('blameable.user', User::class);
-
-        app(BlameableService::class)->loadConfig();
     }
 
     /**

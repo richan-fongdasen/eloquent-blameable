@@ -7,33 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class BlameableService
 {
     /**
-     * Global configurations from config/blameable.php.
-     *
-     * @var array<string>
-     */
-    private $globalConfig;
-
-    /**
-     * Blameable Service Constructor.
-     */
-    public function __construct()
-    {
-        $this->loadConfig();
-    }
-
-    /**
      * Get configurations for the given Model.
      *
      * @param \Illuminate\Database\Eloquent\Model $model
      *
-     * @return array<string>
+     * @return string[]
      */
     private function getConfigurations(Model $model): array
     {
         $modelConfigurations = method_exists($model, 'blameable') ?
             $model->blameable() : [];
 
-        return array_merge($this->globalConfig, $modelConfigurations);
+        return array_merge((array) config('blameable'), $modelConfigurations);
     }
 
     /**
@@ -42,21 +27,13 @@ class BlameableService
      * @param \Illuminate\Database\Eloquent\Model $model
      * @param string                              $key
      *
-     * @return mixed
+     * @return string|null
      */
-    public function getConfiguration(Model $model, string $key)
+    public function getConfiguration(Model $model, string $key): ?string
     {
-        return data_get($this->getConfigurations($model), $key);
-    }
+        $value = data_get($this->getConfigurations($model), $key);
 
-    /**
-     * Load default blameable configurations.
-     *
-     * @return void
-     */
-    public function loadConfig(): void
-    {
-        $this->globalConfig = app('config')->get('blameable');
+        return is_string($value) ? $value : null;
     }
 
     /**
@@ -64,7 +41,7 @@ class BlameableService
      *
      * @param Model    $model
      * @param string   $key
-     * @param int|null $userId
+     * @param int|string|null $userId
      *
      * @return bool
      */
