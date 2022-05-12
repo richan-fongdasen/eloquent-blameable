@@ -20,7 +20,9 @@ if (!function_exists('blameable_user')) {
         $userClass = (string) app(BlameableService::class)->getConfiguration($model, 'user');
 
         if (($user instanceof Model) && ($user instanceof $userClass)) {
-            $userId = $user->getKey();
+            $key = app(BlameableService::class)->getConfiguration($model, 'key') ?: '@getKey';
+            $getKey = '@' === $key[0] ? substr($key, 1) : null;
+            $userId = $getKey ? $user->$getKey() : $user->$key;
 
             return (is_int($userId) || is_string($userId)) ? $userId : null;
         }

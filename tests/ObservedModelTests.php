@@ -3,6 +3,7 @@
 namespace RichanFongdasen\EloquentBlameableTest;
 
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\Comment;
+use RichanFongdasen\EloquentBlameableTest\Supports\Models\Member;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\News;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\Post;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\User;
@@ -262,5 +263,45 @@ class ObservedModelTests extends TestCase
         $this->assertEquals($this->admin->getKey(), $news->getAttribute('updated_by'));
         $this->assertFalse($news->exists);
         $this->assertCount(0, $news->getDirty());
+    }
+
+    /** @test */
+    public function it_works_perfectly_on_creating_new_member()
+    {
+        $this->impersonateUser();
+        $member = Member::factory()->create();
+
+        $this->assertFalse($member->isDirty('created_by'));
+        $this->assertFalse($member->isDirty('updated_by'));
+        $this->assertEquals($this->user->name, $member->getAttribute('created_by'));
+        $this->assertEquals($this->user->name, $member->getAttribute('updated_by'));
+    }
+
+    /** @test */
+    public function it_works_perfectly_on_updating_existing_member()
+    {
+        $this->impersonateUser();
+        $member = Member::factory()->create();
+
+        $this->impersonateOtherUser();
+        $member->setAttribute('name', 'Updated ' . $member->name);
+        $member->save();
+
+        $this->assertFalse($member->isDirty('created_by'));
+        $this->assertFalse($member->isDirty('updated_by'));
+        $this->assertEquals($this->user->name, $member->getAttribute('created_by'));
+        $this->assertEquals($this->otherUser->name, $member->getAttribute('updated_by'));
+    }
+
+    /** @test */
+    public function it_works_perfectly_on_deleting_member()
+    {
+        $this->impersonateUser();
+        $member = Member::factory()->create();
+
+        $member->delete();
+        $deletedMember = Member::onlyTrashed()->where('id', $member->getKey())->first();
+
+        $this->assertEquals($this->user->name, $deletedMember->getAttribute('deleted_by'));
     }
 }

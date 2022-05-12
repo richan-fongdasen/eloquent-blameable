@@ -34,6 +34,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | User Key Field Definition
+    |--------------------------------------------------------------------------
+    |
+    | Please specify a user key field that should be used to fill blameable field
+    | Could be a field or method
+    |
+    | For using method as key, prefix it with "@", example: @getUserKey
+    |
+    */
+
+    'key' => null,
+
+    /*
+    |--------------------------------------------------------------------------
     | The `createdBy` attribute
     |--------------------------------------------------------------------------
     |
