@@ -1,93 +1,93 @@
 {
-  "name": "richan-fongdasen/eloquent-blameable",
-  "description": "Blameable behavior implementation for your Eloquent Model in Laravel",
-  "type": "library",
-  "license": "MIT",
-  "homepage": "https://github.com/richan-fongdasen/eloquent-blameable",
-  "keywords": [
-    "laravel",
-    "laravel-package",
-    "eloquent",
-    "blameable"
-  ],
-  "authors": [
-    {
-      "name": "Richan Fongdasen",
-      "email": "richan.fongdasen@gmail.com"
-    }
-  ],
-  "support": {
-    "issues": "https://github.com/richan-fongdasen/eloquent-blameable/issues",
-    "source": "https://github.com/richan-fongdasen/eloquent-blameable"
-  },
-  "require": {
-    "php": "^7.4|^8.0",
-    "illuminate/database": "^8.0|^9.0",
-    "illuminate/support": "^8.0|^9.0"
-  },
-  "require-dev": {
-    "ekino/phpstan-banned-code": "^1.0",
-    "mockery/mockery": "^1.3",
-    "nunomaduro/larastan": "^1.0|^2.0",
-    "orchestra/database": "^6.0|dev-master",
-    "orchestra/testbench": "^6.0|^7.0",
-    "phpmd/phpmd": "^2.11",
-    "phpstan/phpstan-deprecation-rules": "^1.0",
-    "phpstan/phpstan-strict-rules": "^1.1",
-    "phpunit/phpunit": "^9.5",
-    "sebastian/phpcpd": "^6.0"
-  },
-  "config": {
-    "sort-packages": true
-  },
-  "autoload": {
-    "psr-4": {
-      "RichanFongdasen\\EloquentBlameable\\": "src/"
+    "name": "richan-fongdasen/eloquent-blameable",
+    "description": "Blameable behavior implementation for your Eloquent Model in Laravel",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/richan-fongdasen/eloquent-blameable",
+    "keywords": [
+        "laravel",
+        "laravel-package",
+        "eloquent",
+        "blameable"
+    ],
+    "authors": [
+        {
+            "name": "Richan Fongdasen",
+            "email": "richan.fongdasen@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/richan-fongdasen/eloquent-blameable/issues",
+        "source": "https://github.com/richan-fongdasen/eloquent-blameable"
     },
-    "files": [
-      "src/helpers.php"
-    ]
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "RichanFongdasen\\EloquentBlameableTest\\": "tests/",
-      "Database\\Factories\\": "tests/Supports/Factories/"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "RichanFongdasen\\EloquentBlameable\\ServiceProvider"
-      ]
-    }
-  },
-  "scripts": {
-    "analyse": [
-      "composer check-syntax",
-      "composer phpstan-analysis",
-      "composer phpmd-analysis",
-      "vendor/bin/phpcpd --min-lines=3 --min-tokens=36 src/"
-    ],
-    "check-syntax": [
-      "! find src -type f -name \"*.php\" -exec php -l {} \\; |  grep -v 'No syntax errors'",
-      "! find tests -type f -name \"*.php\" -exec php -l {} \\; |  grep -v 'No syntax errors'"
-    ],
-    "phpstan-analysis": [
-      "vendor/bin/phpstan analyse -c phpstan.neon --no-progress"
-    ],
-    "phpmd-analysis": [
-      "vendor/bin/phpmd src text codesize,controversial,design,naming,unusedcode,.phpmd.cleancode.xml"
-    ],
-    "cov-text": [
-      "phpdbg -qrr vendor/bin/phpunit --coverage-text"
-    ],
-    "cov-html": [
-      "phpdbg -qrr vendor/bin/phpunit --coverage-html coverage"
-    ],
-    "test": [
-      "vendor/bin/phpunit"
-    ]
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/database": "^8.0|^9.0|^10.0",
+        "illuminate/support": "^8.0|^9.0|^10.0"
+    },
+    "require-dev": {
+        "ekino/phpstan-banned-code": "^1.0",
+        "mockery/mockery": "^1.3",
+        "nunomaduro/larastan": "^1.0|^2.0",
+        "orchestra/database": "^6.0|dev-master",
+        "orchestra/testbench": "^6.0|^7.0|^8.0",
+        "phpmd/phpmd": "^2.11",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-strict-rules": "^1.1",
+        "phpunit/phpunit": "^9.5",
+        "sebastian/phpcpd": "^6.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "RichanFongdasen\\EloquentBlameable\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RichanFongdasen\\EloquentBlameableTest\\": "tests/",
+            "Database\\Factories\\": "tests/Supports/Factories/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RichanFongdasen\\EloquentBlameable\\ServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "analyse": [
+            "composer check-syntax",
+            "composer phpstan-analysis",
+            "composer phpmd-analysis",
+            "vendor/bin/phpcpd --min-lines=3 --min-tokens=36 src/"
+        ],
+        "check-syntax": [
+            "! find src -type f -name \"*.php\" -exec php -l {} \\; |  grep -v 'No syntax errors'",
+            "! find tests -type f -name \"*.php\" -exec php -l {} \\; |  grep -v 'No syntax errors'"
+        ],
+        "phpstan-analysis": [
+            "vendor/bin/phpstan analyse -c phpstan.neon --no-progress"
+        ],
+        "phpmd-analysis": [
+            "vendor/bin/phpmd src text codesize,controversial,design,naming,unusedcode,.phpmd.cleancode.xml"
+        ],
+        "cov-text": [
+            "phpdbg -qrr vendor/bin/phpunit --coverage-text"
+        ],
+        "cov-html": [
+            "phpdbg -qrr vendor/bin/phpunit --coverage-html coverage"
+        ],
+        "test": [
+            "vendor/bin/phpunit"
+        ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
