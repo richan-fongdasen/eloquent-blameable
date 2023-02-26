@@ -37,6 +37,7 @@ jobs:
         run: composer analyse
   test:
     name: Test (PHP ${{ matrix.php }})
+    needs: [ analysis ]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -67,6 +68,7 @@ jobs:
         run: vendor/bin/phpunit
   test-coverage:
     name: Test (PHP ${{ matrix.php }})
+    needs: [ analysis ]
     runs-on: ubuntu-latest
     strategy:
       matrix:
