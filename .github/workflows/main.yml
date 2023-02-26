@@ -56,6 +56,6 @@ jobs:
       - name: Run PHPUnit tests and generate code coverage
         run: |
           composer analyse
-          phpdbg -qrr vendor/bin/phpunit --coverage-clover=clover.xml
+          vendor/bin/phpunit --coverage-clover=clover.xml
       - name: Upload code coverage results
         run: bash <(curl -s https://codecov.io/bash)
