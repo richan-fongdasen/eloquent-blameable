@@ -40,6 +40,7 @@ $ composer require richan-fongdasen/eloquent-blameable
 | 7.x             | 1.5.x             |
 | 8.x             | 1.6.x             |
 | 9.x             | 1.8.x             |
+| 10.x            | 1.9.x             |
 
 > If you are using Laravel version 5.5+ then you can skip registering the service provider in your Laravel application.
 
