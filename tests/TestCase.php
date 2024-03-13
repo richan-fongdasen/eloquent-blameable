@@ -78,7 +78,6 @@ abstract class TestCase extends BaseTest
     {
         return [
             \RichanFongdasen\EloquentBlameable\ServiceProvider::class,
-            \Orchestra\Database\ConsoleServiceProvider::class
         ];
     }
 
@@ -87,7 +86,7 @@ abstract class TestCase extends BaseTest
      *
      * @return void
      */
-    protected function impersonateAdmin() :void
+    protected function impersonateAdmin(): void
     {
         $this->admin = Admin::factory()->create([
             'id' => rand(300, 900)
@@ -101,7 +100,7 @@ abstract class TestCase extends BaseTest
      * @return void
      * @throws \Exception
      */
-    protected function impersonateOtherUser() :void
+    protected function impersonateOtherUser(): void
     {
         $this->otherUser = User::factory()->create([
             'id' => random_int(1000, 2000)
@@ -115,7 +114,7 @@ abstract class TestCase extends BaseTest
      * @return void
      * @throws \Exception
      */
-    protected function impersonateUser() :void
+    protected function impersonateUser(): void
     {
         $this->user = User::factory()->create([
             'id' => random_int(200, 900)
@@ -148,7 +147,7 @@ abstract class TestCase extends BaseTest
      * @param  string $migrationPath
      * @return void
      */
-    protected function prepareDatabase($migrationPath) :void
+    protected function prepareDatabase($migrationPath): void
     {
         $this->loadMigrationsFrom($migrationPath);
     }
@@ -159,7 +158,7 @@ abstract class TestCase extends BaseTest
      * @param  mixed $exception
      * @return void
      */
-    protected function prepareException($exception) :void
+    protected function prepareException($exception): void
     {
         if (method_exists($this, 'expectException')) {
             $this->expectException($exception);
@@ -173,11 +172,11 @@ abstract class TestCase extends BaseTest
      *
      * @return void
      */
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
 
-        $this->prepareDatabase(realpath(__DIR__.'/Supports/Migrations'));
+        $this->prepareDatabase(realpath(__DIR__ . '/Supports/Migrations'));
 
         Factory::guessFactoryNamesUsing(function (string $modelName) {
             return 'Database\\Factories\\' . class_basename($modelName) . 'Factory';

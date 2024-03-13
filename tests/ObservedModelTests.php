@@ -2,6 +2,7 @@
 
 namespace RichanFongdasen\EloquentBlameableTest;
 
+use PHPUnit\Framework\Attributes\Test;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\Comment;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\News;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\Post;
@@ -9,7 +10,7 @@ use RichanFongdasen\EloquentBlameableTest\Supports\Models\User;
 
 class ObservedModelTests extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_creating_a_new_post()
     {
         $this->impersonateUser();
@@ -21,7 +22,7 @@ class ObservedModelTests extends TestCase
         $this->assertEquals($this->user->getKey(), $post->getAttribute('updated_by'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_updating_existing_post()
     {
         $this->impersonateUser();
@@ -37,7 +38,7 @@ class ObservedModelTests extends TestCase
         $this->assertEquals($this->otherUser->getKey(), $post->getAttribute('updated_by'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_deleting_post1()
     {
         $this->impersonateUser();
@@ -49,7 +50,7 @@ class ObservedModelTests extends TestCase
         $this->assertEquals($this->user->getKey(), $deletedPost->getAttribute('deleted_by'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_deleting_post2()
     {
         $this->impersonateUser();
@@ -63,7 +64,7 @@ class ObservedModelTests extends TestCase
         $this->assertEquals($this->otherUser->getKey(), $deletedPost->getAttribute('deleted_by'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_restoring_deleted_post()
     {
         $this->impersonateUser();
@@ -77,7 +78,7 @@ class ObservedModelTests extends TestCase
         $this->assertNull($restoredPost->getAttribute('deleted_by'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_creating_a_new_comment()
     {
         $this->impersonateUser();
@@ -91,7 +92,7 @@ class ObservedModelTests extends TestCase
         $this->assertEquals($this->user->getKey(), $comment->getAttribute('updater_id'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_updating_existing_comment()
     {
         $this->impersonateUser();
@@ -115,7 +116,7 @@ class ObservedModelTests extends TestCase
         $this->assertEquals($this->user->getKey(), $updatedPost->getAttribute('updated_by'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_deleting_comment1()
     {
         $this->impersonateUser();
@@ -129,7 +130,7 @@ class ObservedModelTests extends TestCase
         $this->assertEquals($this->user->getKey(), $deletedComment->getAttribute('eraser_id'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_deleting_comment2()
     {
         $this->impersonateUser();
@@ -145,7 +146,7 @@ class ObservedModelTests extends TestCase
         $this->assertEquals($this->otherUser->getKey(), $deletedComment->getAttribute('eraser_id'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_restoring_deleted_comment()
     {
         $this->impersonateUser();
@@ -161,7 +162,7 @@ class ObservedModelTests extends TestCase
         $this->assertNull($restoredComment->getAttribute('deleted_by'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_creating_a_new_user1()
     {
         $this->impersonateUser();
@@ -172,7 +173,7 @@ class ObservedModelTests extends TestCase
         $this->assertNull($this->user->getAttribute('updated_by'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_creating_a_new_user2()
     {
         $this->impersonateUser();
@@ -184,7 +185,7 @@ class ObservedModelTests extends TestCase
         $this->assertEquals($this->user->getKey(), $this->otherUser->getAttribute('updated_by'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_updating_existing_user()
     {
         $this->impersonateUser();
@@ -200,7 +201,7 @@ class ObservedModelTests extends TestCase
         $this->assertEquals($this->otherUser->getKey(), $user->getAttribute('updated_by'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_deleting_user1()
     {
         $this->impersonateUser();
@@ -212,7 +213,7 @@ class ObservedModelTests extends TestCase
         $this->assertEquals($this->user->getKey(), $deletedUser->getAttribute('deleted_by'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_deleting_user2()
     {
         $this->impersonateUser();
@@ -226,7 +227,7 @@ class ObservedModelTests extends TestCase
         $this->assertEquals($this->otherUser->getKey(), $deletedUser->getAttribute('deleted_by'));
     }
 
-    /** @test */
+    #[Test]
     public function it_works_perfectly_on_restoring_deleted_user()
     {
         $this->impersonateUser();
@@ -240,7 +241,7 @@ class ObservedModelTests extends TestCase
         $this->assertNull($restoredUser->getAttribute('deleted_by'));
     }
 
-    /** @test */
+    #[Test]
     public function it_will_set_null_creator_and_null_updater_on_unauthenticated_user()
     {
         $post = Post::factory()->create();
@@ -249,7 +250,7 @@ class ObservedModelTests extends TestCase
         $this->assertNull($post->getAttribute('updated_by'));
     }
 
-    /** @test */
+    #[Test]
     public function it_wont_cause_any_error_when_deleting_model_without_soft_deletes()
     {
         $this->impersonateAdmin();

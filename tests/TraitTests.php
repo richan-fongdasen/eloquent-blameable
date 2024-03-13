@@ -2,6 +2,7 @@
 
 namespace RichanFongdasen\EloquentBlameableTest;
 
+use PHPUnit\Framework\Attributes\Test;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\Admin;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\Article;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\Post;
@@ -25,7 +26,7 @@ class TraitTests extends TestCase
      * @return void
      * @throws \Exception
      */
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -45,7 +46,7 @@ class TraitTests extends TestCase
         $this->postB->save();
     }
 
-    /** @test */
+    #[Test]
     public function post_model_would_accept_created_by_scope1()
     {
         $collections = Post::createdBy($this->user->getKey())->get();
@@ -55,7 +56,7 @@ class TraitTests extends TestCase
         $this->assertTrue($collections->contains($this->postC));
     }
 
-    /** @test */
+    #[Test]
     public function post_model_would_accept_created_by_scope2()
     {
         $collections = Post::createdBy($this->otherUser)->get();
@@ -64,7 +65,7 @@ class TraitTests extends TestCase
         $this->assertTrue($collections->contains($this->postE));
     }
 
-    /** @test */
+    #[Test]
     public function post_model_would_accept_updated_by_scope1()
     {
         $collections = Post::updatedBy($this->user->getKey())->get();
@@ -73,7 +74,7 @@ class TraitTests extends TestCase
         $this->assertTrue($collections->contains($this->postC));
     }
 
-    /** @test */
+    #[Test]
     public function post_model_would_accept_updated_by_scope2()
     {
         $collections = Post::updatedBy($this->otherUser)->get();
@@ -83,7 +84,7 @@ class TraitTests extends TestCase
         $this->assertTrue($collections->contains($this->postE));
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_creator_user_object_correctly()
     {
         $this->assertInstanceOf(User::class, $this->postA->creator);
@@ -99,7 +100,7 @@ class TraitTests extends TestCase
         $this->assertEquals($this->otherUser->getKey(), $this->postE->creator->getKey());
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_updater_user_object_correctly()
     {
         $this->assertInstanceOf(User::class, $this->postA->updater);
@@ -107,7 +108,7 @@ class TraitTests extends TestCase
         $this->assertInstanceOf(User::class, $this->postC->updater);
         $this->assertInstanceOf(User::class, $this->postD->updater);
         $this->assertInstanceOf(User::class, $this->postE->updater);
-        
+
         $this->assertEquals($this->user->getKey(), $this->postA->updater->getKey());
         $this->assertEquals($this->user->getKey(), $this->postC->updater->getKey());
         $this->assertEquals($this->otherUser->getKey(), $this->postB->updater->getKey());
@@ -115,7 +116,7 @@ class TraitTests extends TestCase
         $this->assertEquals($this->otherUser->getKey(), $this->postE->updater->getKey());
     }
 
-    /** @test */
+    #[Test]
     public function article_model_would_accept_created_by_scope()
     {
         $collections = Article::createdBy($this->admin)->get();
@@ -125,7 +126,7 @@ class TraitTests extends TestCase
         $this->assertTrue($collections->contains($this->articleC));
     }
 
-    /** @test */
+    #[Test]
     public function article_model_would_accept_updated_by_scope()
     {
         $collections = Article::updatedBy($this->admin)->get();
@@ -135,7 +136,7 @@ class TraitTests extends TestCase
         $this->assertTrue($collections->contains($this->articleC));
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_creator_admin_object_correctly()
     {
         $this->assertInstanceOf(Admin::class, $this->articleA->creator);
@@ -147,7 +148,7 @@ class TraitTests extends TestCase
         $this->assertEquals($this->admin->getKey(), $this->articleC->creator->getKey());
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_updater_admin_object_correctly()
     {
         $this->assertInstanceOf(Admin::class, $this->articleA->updater);

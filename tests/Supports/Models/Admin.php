@@ -26,4 +26,14 @@ class Admin extends Model implements Authenticatable
         'email',
         'password'
     ];
+
+    /**
+     * Get the name of the password attribute for the user.
+     *
+     * @return string
+     */
+    public function getAuthPasswordName()
+    {
+        return 'password';
+    }
 }
