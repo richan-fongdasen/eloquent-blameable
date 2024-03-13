@@ -21,21 +21,19 @@
         "source": "https://github.com/richan-fongdasen/eloquent-blameable"
     },
     "require": {
-        "php": "^7.4|^8.0",
-        "illuminate/database": "^8.0|^9.0|^10.0",
-        "illuminate/support": "^8.0|^9.0|^10.0"
+        "php": "^8.0",
+        "illuminate/database": "^8.0|^9.0|^10.0|^11.0",
+        "illuminate/support": "^8.0|^9.0|^10.0|^11.0"
     },
     "require-dev": {
         "ekino/phpstan-banned-code": "^1.0",
-        "mockery/mockery": "^1.3",
-        "nunomaduro/larastan": "^1.0|^2.0",
-        "orchestra/database": "^6.0|dev-master",
-        "orchestra/testbench": "^6.0|^7.0|^8.0",
+        "larastan/larastan": "^1.0|^2.0",
+        "mockery/mockery": "^1.4",
+        "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0",
         "phpmd/phpmd": "^2.11",
         "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-strict-rules": "^1.1",
-        "phpunit/phpunit": "^9.5",
-        "sebastian/phpcpd": "^6.0"
+        "phpstan/phpstan-strict-rules": "^1.0",
+        "phpunit/phpunit": "^9.5|^10.0|^11.0"
     },
     "config": {
         "sort-packages": true
@@ -65,8 +63,7 @@
         "analyse": [
             "composer check-syntax",
             "composer phpstan-analysis",
-            "composer phpmd-analysis",
-            "vendor/bin/phpcpd --min-lines=3 --min-tokens=36 src/"
+            "composer phpmd-analysis"
         ],
         "check-syntax": [
             "! find src -type f -name \"*.php\" -exec php -l {} \\; |  grep -v 'No syntax errors'",

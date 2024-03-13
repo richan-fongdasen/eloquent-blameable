@@ -2,6 +2,7 @@
 
 namespace RichanFongdasen\EloquentBlameableTest;
 
+use PHPUnit\Framework\Attributes\Test;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\Comment;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\Post;
 use RichanFongdasen\EloquentBlameableTest\Supports\Models\PostOverrideAttributes;
@@ -18,14 +19,14 @@ class ServiceTests extends TestCase
      *
      * @return void
      */
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->service = new BlameableService();
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_configurations_correctly1()
     {
         $expected = [
@@ -41,7 +42,7 @@ class ServiceTests extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_configurations_correctly2()
     {
         $expected = [
@@ -57,7 +58,7 @@ class ServiceTests extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_configurations_correctly3()
     {
         $expected = [
@@ -73,7 +74,7 @@ class ServiceTests extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_configuration_value_correctly1()
     {
         $model = new Comment();
@@ -82,7 +83,7 @@ class ServiceTests extends TestCase
         $this->assertEquals(User::class, $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_configuration_value_correctly2()
     {
         $model = new Comment();
@@ -91,7 +92,7 @@ class ServiceTests extends TestCase
         $this->assertEquals('user_id', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_configuration_value_correctly3()
     {
         $model = new Comment();
@@ -100,7 +101,7 @@ class ServiceTests extends TestCase
         $this->assertEquals('updater_id', $result);
     }
 
-    /** @test */
+    #[Test]
     public function it_would_set_attribute_value_correctly1()
     {
         $this->impersonateUser();
@@ -111,7 +112,7 @@ class ServiceTests extends TestCase
         $this->assertTrue($result);
     }
 
-    /** @test */
+    #[Test]
     public function it_would_set_attribute_value_correctly2()
     {
         $this->impersonateUser();
@@ -122,7 +123,7 @@ class ServiceTests extends TestCase
         $this->assertTrue($result);
     }
 
-    /** @test */
+    #[Test]
     public function it_would_set_attribute_value_correctly3()
     {
         $this->impersonateUser();
@@ -133,7 +134,7 @@ class ServiceTests extends TestCase
         $this->assertTrue($result);
     }
 
-    /** @test */
+    #[Test]
     public function it_would_set_attribute_value_correctly4()
     {
         $this->impersonateUser();
