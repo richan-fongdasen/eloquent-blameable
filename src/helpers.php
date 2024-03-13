@@ -4,7 +4,6 @@ use Illuminate\Database\Eloquent\Model;
 use RichanFongdasen\EloquentBlameable\BlameableService;
 
 if (!function_exists('blameable_user')) {
-
     /**
      * Get the blameable User identifier.
      *
