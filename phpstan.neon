@@ -6,9 +6,11 @@ includes:
 
 parameters:
     level: 8
-    checkMissingIterableValueType: false
     paths:
         - src
+    ignoreErrors:
+        - identifier: trait.unused
+        - '#Dynamic call to static method Illuminate\\Contracts\\Auth\\Guard::user\(\).#'
     banned_code:
         nodes:
             - type: Expr_FuncCall
