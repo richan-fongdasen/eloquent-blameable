@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [8.3]
+        php: [8.3, 8.4, 8.5]
     steps:
       - uses: actions/checkout@v4
       - name: Setup PHP
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [8.0, 8.1, 8.2, 8.3, 8.4]
+        php: [8.3, 8.4, 8.5]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -76,7 +76,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [8.3]
+        php: [8.3, 8.4, 8.5]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -103,4 +103,6 @@ jobs:
       - name: Run PHPUnit tests and generate code coverage
         run: vendor/bin/phpunit --coverage-clover=clover.xml
       - name: Upload code coverage results
-        run: bash <(curl -s https://codecov.io/bash)
+        uses: codecov/codecov-action@v5
+        with:
+          files: clover.xml

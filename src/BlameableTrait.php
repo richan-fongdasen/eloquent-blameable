@@ -31,7 +31,7 @@ trait BlameableTrait
      */
     public static function bootBlameableTrait(): void
     {
-        static::observe(app(BlameableObserver::class));
+        static::whenBooted(fn () => static::observe(app(BlameableObserver::class)));
     }
 
     /**

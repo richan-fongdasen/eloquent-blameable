@@ -1,5 +1,5 @@
 [![CI](https://github.com/richan-fongdasen/eloquent-blameable/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/richan-fongdasen/eloquent-blameable/actions/workflows/main.yml)
-[![codecov](https://codecov.io/gh/richan-fongdasen/eloquent-blameable/branch/master/graph/badge.svg)](https://codecov.io/gh/richan-fongdasen/eloquent-blameable)
+[![codecov](https://codecov.io/gh/richan-fongdasen/eloquent-blameable/branch/main/graph/badge.svg)](https://codecov.io/gh/richan-fongdasen/eloquent-blameable)
 [![Total Downloads](https://poser.pugx.org/richan-fongdasen/eloquent-blameable/d/total.svg)](https://packagist.org/packages/richan-fongdasen/eloquent-blameable)
 [![Latest Stable Version](https://poser.pugx.org/richan-fongdasen/eloquent-blameable/v/stable.svg)](https://packagist.org/packages/richan-fongdasen/eloquent-blameable)
 [![License: MIT](https://poser.pugx.org/laravel/framework/license.svg)](https://opensource.org/licenses/MIT)
@@ -29,17 +29,18 @@ $ composer require richan-fongdasen/eloquent-blameable
 
 ### Laravel version compatibility
 
-| Laravel version | Blameable version |
-| :-------------- | :---------------- |
-| 5.1.x           | 1.0.x             |
-| 5.2.x - 5.4.x   | 1.1.x - 1.2.x     |
-| 5.5.x - 5.8.x   | 1.3.x             |
-| 6.x             | 1.4.x             |
-| 7.x             | 1.5.x             |
-| 8.x             | 1.6.x             |
-| 9.x             | 1.8.x             |
-| 10.x            | 1.9.x             |
-| 10.x            | 1.10.x            |
+| Laravel version | Blameable version | PHP version |
+| :-------------- | :---------------- | :---------- |
+| 5.1.x           | 1.0.x             | >= 5.6      |
+| 5.2.x - 5.4.x   | 1.1.x - 1.2.x     | >= 5.6      |
+| 5.5.x - 5.8.x   | 1.3.x             | >= 7.0      |
+| 6.x             | 1.4.x             | >= 7.2      |
+| 7.x             | 1.5.x             | >= 7.2      |
+| 8.x             | 1.6.x             | >= 7.3      |
+| 9.x             | 1.8.x             | >= 8.0      |
+| 10.x            | 1.9.x - 1.10.x   | >= 8.1      |
+| 11.x - 12.x    | 1.11.x            | >= 8.0      |
+| 13.x            | 2.0.x             | >= 8.3      |
 
 > If you are using Laravel version 5.5+ then you can skip registering the service provider in your Laravel application.
 
@@ -95,7 +96,7 @@ return [
     |
     */
 
-    'user' => \App\User::class,
+    'user' => \App\Models\User::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -189,7 +190,7 @@ class Post extends Model
      */
     protected static $blameable = [
         'guard' => 'customGuard',
-        'user' => \App\User::class,
+        'user' => \App\Models\User::class,
         'createdBy' => 'user_id',
         'updatedBy' => null
     ];
@@ -206,7 +207,7 @@ class Post extends Model
     {
         return [
             'guard' => 'customGuard',
-            'user' => \App\User::class,
+            'user' => \App\Models\User::class,
             'createdBy' => 'user_id',
             'updatedBy' => null
         ];
